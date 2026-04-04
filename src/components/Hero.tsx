@@ -7,7 +7,7 @@ export default function Hero() {
     <header className="hero">
       <div className="hero__inner">
         <p className="hero__runes">{RUNES_TOP}</p>
-        <h1 className="hero__title">Runor av Vilhelm</h1>
+        <h1 className="hero__title">Runes by Vilhelm</h1>
         <p className="hero__name">Vilhelm Westman</p>
         <Separator />
         <p className="hero__bio">
