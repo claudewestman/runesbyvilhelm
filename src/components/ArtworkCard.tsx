@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Artwork } from '../data/artworks'
+import { thumbnailSrc } from '../utils/imagePaths'
 import './ArtworkCard.css'
 
 interface Props {
@@ -27,7 +28,7 @@ export default function ArtworkCard({ artwork, onClick }: Props) {
         {!loaded && <div className="card__shimmer" aria-hidden="true" />}
         <img
           className={`card__img${loaded ? ' card__img--loaded' : ''}`}
-          src={artwork.image}
+          src={thumbnailSrc(artwork.image)}
           alt={artwork.title}
           loading="lazy"
           decoding="async"
