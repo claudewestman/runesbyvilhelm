@@ -12,9 +12,9 @@ function formatPrice(price: number) {
 
 export default function ArtworkCard({ artwork, onClick }: Props) {
   const badge = artwork.sold
-    ? <span className="card__badge card__badge--sold">Såld</span>
+    ? <span className="card__badge card__badge--sold">Sold</span>
     : artwork.forSale
-      ? <span className="card__badge card__badge--sale">Till salu</span>
+      ? <span className="card__badge card__badge--sale">For sale</span>
       : null
 
   return (
@@ -28,7 +28,7 @@ export default function ArtworkCard({ artwork, onClick }: Props) {
           loading="lazy"
         />
         <div className="card__overlay">
-          <span className="card__overlay-text">Visa</span>
+          <span className="card__overlay-text">View</span>
         </div>
         {badge}
       </div>

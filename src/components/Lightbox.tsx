@@ -49,7 +49,7 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
       className="lightbox"
       role="dialog"
       aria-modal="true"
-      aria-label={artwork.title}
+      aria-label={`Artwork: ${artwork.title}`}
       onClick={handleBackdropClick}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -69,7 +69,7 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
 
           <div className="lb-price-row">
             {artwork.sold ? (
-              <span className="lb-sold-label">Såld</span>
+              <span className="lb-sold-label">Sold</span>
             ) : artwork.forSale ? (
               <>
                 <span className="lb-price">{formatPrice(artwork.price)}</span>
@@ -79,7 +79,7 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Köp detta verk
+                  Purchase this piece
                 </a>
               </>
             ) : null}
@@ -87,9 +87,9 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
         </div>
       </div>
 
-      <button className="lightbox__close" onClick={onClose} aria-label="Stäng">✕</button>
-      <button className="lightbox__nav lightbox__nav--prev" onClick={onPrev} aria-label="Föregående">‹</button>
-      <button className="lightbox__nav lightbox__nav--next" onClick={onNext} aria-label="Nästa">›</button>
+      <button className="lightbox__close" onClick={onClose} aria-label="Close">✕</button>
+      <button className="lightbox__nav lightbox__nav--prev" onClick={onPrev} aria-label="Previous">‹</button>
+      <button className="lightbox__nav lightbox__nav--next" onClick={onNext} aria-label="Next">›</button>
     </div>
   )
 }
