@@ -26,7 +26,7 @@ export const artworks: Artwork[] = [
     price: 3800,
     forSale: true,
     stripeLink: "#stripe-yggdrasil",
-    sold: false,
+    sold: true,
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ export const artworks: Artwork[] = [
     price: 2200,
     forSale: true,
     stripeLink: "#stripe-tvenne-ormar",
-    sold: false,
+    sold: true,
   },
   {
     id: 3,
@@ -54,7 +54,7 @@ export const artworks: Artwork[] = [
     price: 4500,
     forSale: true,
     stripeLink: "#stripe-drakrunsten",
-    sold: false,
+    sold: true,
   },
   {
     id: 4,
@@ -68,7 +68,7 @@ export const artworks: Artwork[] = [
     price: 1800,
     forSale: true,
     stripeLink: "#stripe-hjartormar",
-    sold: false,
+    sold: true,
   },
   {
     id: 5,
@@ -82,7 +82,7 @@ export const artworks: Artwork[] = [
     price: 2600,
     forSale: true,
     stripeLink: "#stripe-nidhogr",
-    sold: false,
+    sold: true,
   },
   {
     id: 6,
@@ -96,7 +96,7 @@ export const artworks: Artwork[] = [
     price: 2000,
     forSale: true,
     stripeLink: "#stripe-tvahovdad",
-    sold: false,
+    sold: true,
   },
   {
     id: 7,
@@ -110,7 +110,7 @@ export const artworks: Artwork[] = [
     price: 1900,
     forSale: true,
     stripeLink: "#stripe-kosmiskt-oga",
-    sold: false,
+    sold: true,
   },
   {
     id: 8,
@@ -124,7 +124,7 @@ export const artworks: Artwork[] = [
     price: 2400,
     forSale: true,
     stripeLink: "#stripe-stendrak",
-    sold: false,
+    sold: true,
   },
   {
     id: 9,
@@ -138,7 +138,7 @@ export const artworks: Artwork[] = [
     price: 3200,
     forSale: true,
     stripeLink: "#stripe-fenrir",
-    sold: false,
+    sold: true,
   },
   {
     id: 10,
@@ -152,7 +152,7 @@ export const artworks: Artwork[] = [
     price: 2800,
     forSale: true,
     stripeLink: "#stripe-seidkona",
-    sold: false,
+    sold: true,
   },
   {
     id: 11,
@@ -166,7 +166,7 @@ export const artworks: Artwork[] = [
     price: 5500,
     forSale: true,
     stripeLink: "#stripe-hjortdraken",
-    sold: false,
+    sold: true,
   },
   {
     id: 12,
@@ -180,7 +180,7 @@ export const artworks: Artwork[] = [
     price: 2600,
     forSale: true,
     stripeLink: "#stripe-draupnir",
-    sold: false,
+    sold: true,
   },
   {
     id: 13,
@@ -194,7 +194,7 @@ export const artworks: Artwork[] = [
     price: 4800,
     forSale: true,
     stripeLink: "#stripe-vikingataget",
-    sold: false,
+    sold: true,
   },
   {
     id: 14,
@@ -208,6 +208,6 @@ export const artworks: Artwork[] = [
     price: 2400,
     forSale: true,
     stripeLink: "#stripe-bla-ormflata",
-    sold: false,
+    sold: true,
   },
 ];

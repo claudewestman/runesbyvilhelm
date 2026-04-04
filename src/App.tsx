@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import Gallery from './components/Gallery'
 import Lightbox from './components/Lightbox'
 import About from './components/About'
+import ContactForm from './components/ContactForm'
 import Footer from './components/Footer'
 import './App.css'
 
@@ -22,6 +23,7 @@ export default function App() {
       <main>
         <Gallery artworks={artworks} onOpen={open} />
         <About />
+        <ContactForm />
       </main>
       <Footer />
       {activeIndex !== null && (
