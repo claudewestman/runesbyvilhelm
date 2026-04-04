@@ -1,15 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- Octagonal shield background -->
-  <polygon fill="#000"
-    points="176,24 336,24 490,148 490,364 336,488 176,488 22,364 22,148"/>
+  <!-- Dark background -->
+  <rect width="512" height="512" fill="#0c0a08" rx="80"/>
 
-  <!-- Othala rune – hollow diamond + two legs -->
-  <g fill="none" stroke="#fff" stroke-width="46" stroke-linejoin="round" stroke-linecap="round">
-    <!-- Diamond outline -->
-    <polyline points="256,132 358,242 256,352 154,242 256,132"/>
-    <!-- Left leg -->
-    <line x1="154" y1="242" x2="136" y2="400"/>
-    <!-- Right leg -->
-    <line x1="358" y1="242" x2="376" y2="400"/>
+  <!-- Fehu rune – vertical staff + two diagonal branches -->
+  <g stroke="#c9a84c" stroke-width="52" stroke-linecap="round" fill="none">
+    <!-- Vertical staff -->
+    <line x1="175" y1="48" x2="175" y2="472"/>
+    <!-- Upper branch (angled up-right) -->
+    <line x1="175" y1="128" x2="415" y2="52"/>
+    <!-- Lower branch (angled up-right, parallel) -->
+    <line x1="175" y1="258" x2="415" y2="182"/>
   </g>
 </svg>
