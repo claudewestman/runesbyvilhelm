@@ -10,7 +10,7 @@ interface Props {
 export default function Gallery({ artworks, onOpen }: Props) {
   return (
     <section className="gallery-section">
-      <h2 className="gallery-section__title">Galleri</h2>
+      <h2 className="gallery-section__title">Gallery</h2>
       <div className="gallery-grid">
         {artworks.map((artwork, index) => (
           <ArtworkCard

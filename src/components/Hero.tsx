@@ -11,8 +11,8 @@ export default function Hero() {
         <p className="hero__name">Vilhelm Westman</p>
         <Separator />
         <p className="hero__bio">
-          Handgjorda runristningar på trä – skapade med yngre futharken, eddans berättelser
-          och äkta vikingatida skrifter som grund. Varje verk är unikt och bär sin egen runtext.
+          Handcrafted rune carvings on wood – rooted in the Younger Futhark, the Eddic myths,
+          and authentic Viking Age inscriptions. Every piece is unique and carries its own runic text.
         </p>
         <p className="hero__runes hero__runes--bottom">
           ᛏᚢᛚᚴᚢᚦᚱ · ᚠᚢᚦᚨᚱᚲ · ᚼᚾᛁᛅᛋᛏᛒᛘᛚᛦ
