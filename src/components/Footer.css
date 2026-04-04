@@ -1,0 +1,19 @@
+.footer {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  background: #080604;
+  border-top: 1px solid var(--border);
+}
+
+.footer__runes {
+  font-size: .8rem;
+  letter-spacing: .3em;
+  color: var(--gold-dim);
+  user-select: none;
+  margin-bottom: .75rem;
+}
+
+.footer__copy {
+  font-size: .85rem;
+  color: var(--text-muted);
+}

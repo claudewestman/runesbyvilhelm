@@ -1,0 +1,60 @@
+.about {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem 1.5rem;
+}
+
+.about__inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about__title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.about__text {
+  font-size: 1.05rem;
+  color: var(--text);
+  line-height: 1.75;
+}
+
+.about__text + .about__text { margin-top: 1rem; }
+
+.about__sep {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 320px;
+  margin: 2rem auto 1.5rem;
+}
+
+.about__sep-line {
+  flex: 1;
+  height: 1px;
+  background: var(--gold-dim);
+  opacity: .5;
+}
+
+.about__sep-diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.about__runes {
+  font-size: .8rem;
+  letter-spacing: .3em;
+  color: var(--gold-dim);
+  user-select: none;
+}

@@ -1,0 +1,213 @@
+export interface Artwork {
+  id: number;
+  slug: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  medium: string;
+  image: string;
+  price: number;
+  forSale: boolean;
+  /** Stripe Payment Link URL – skapa på dashboard.stripe.com/payment-links */
+  stripeLink: string;
+  sold: boolean;
+}
+
+export const artworks: Artwork[] = [
+  {
+    id: 1,
+    slug: "yggdrasil",
+    title: "Yggdrasil",
+    subtitle: "Världsträdet",
+    description:
+      "Världsträdet Yggdrasil bär hela kosmos. Örnen Hræsvelgr tronar vid kronan, ekorren Ratatöskr springer längs stammen och draken Níðhöggr gnager vid rötterna. Runbandet spiralerar runt hela verket med text ur den äldre eddan.",
+    medium: "Akryl på trä",
+    image: "/images/01-yggdrasil.jpg",
+    price: 3800,
+    forSale: true,
+    stripeLink: "#stripe-yggdrasil",
+    sold: false,
+  },
+  {
+    id: 2,
+    slug: "tvenne-ormar",
+    title: "Tvenne ormar",
+    subtitle: "Urnesstil på grönt",
+    description:
+      "Två ormar i klassisk Urnesstil slingrar sig om varandra mot en djupgrön bakgrund. Den röda och den guldfärgade ormen bildar ett ständigt återkommande flöde – liv och död i ett. Runristning längs kroppen.",
+    medium: "Akryl och brännteknik på trä",
+    image: "/images/02-tvenne-ormar.jpg",
+    price: 2200,
+    forSale: true,
+    stripeLink: "#stripe-tvenne-ormar",
+    sold: false,
+  },
+  {
+    id: 3,
+    slug: "drakrunsten",
+    title: "Drakrunsten",
+    subtitle: "Runsten i svart",
+    description:
+      "En stiliserad runsten i svart med en mäktig drake i rött och guld. Inspirerad av de äkta runstenarna från 1000-talet. Runristningens text löper längs drakens kropp i en komplex vikingatida knutfläta.",
+    medium: "Akryl på träskiva i runstensform",
+    image: "/images/03-drakrunsten.jpg",
+    price: 4500,
+    forSale: true,
+    stripeLink: "#stripe-drakrunsten",
+    sold: false,
+  },
+  {
+    id: 4,
+    slug: "hjartormar",
+    title: "Hjärtormar",
+    subtitle: "Kärlek i rött och guld",
+    description:
+      "Två ormar slingrar sig samman och formar ett hjärta mot röd bakgrund. Runbandet bär en text om kärlek och förbund hämtad från skaldediktningen. En av de mer personliga kompositionerna.",
+    medium: "Akryl på trä",
+    image: "/images/04-hjartormar.jpg",
+    price: 1800,
+    forSale: true,
+    stripeLink: "#stripe-hjartormar",
+    sold: false,
+  },
+  {
+    id: 5,
+    slug: "nidhogr",
+    title: "Níðhöggr",
+    subtitle: "Ormögat i mörkret",
+    description:
+      "Den stora världsormen vilar i mörkret med sitt lysande öga. Komposition hämtad ur Völuspás beskrivning av Níðhöggr vid tidens slut. Runbandet kretsar runt verket i en obruten cirkel.",
+    medium: "Akryl och brännteknik på trä",
+    image: "/images/05-nidhogr.jpg",
+    price: 2600,
+    forSale: true,
+    stripeLink: "#stripe-nidhogr",
+    sold: false,
+  },
+  {
+    id: 6,
+    slug: "tvahovdad",
+    title: "Tvåhövdad",
+    subtitle: "Drake i rött och guld på svart",
+    description:
+      "En tvåhövdad drake slingrar sig i klassisk vikingatida stil mot kolsvart bakgrund. De röda och guldfärgade linjerna bildar ett komplext mönster av knutar och slingor. Runristning längs kroppen.",
+    medium: "Akryl på trä",
+    image: "/images/06-tvahovdad.jpg",
+    price: 2000,
+    forSale: true,
+    stripeLink: "#stripe-tvahovdad",
+    sold: false,
+  },
+  {
+    id: 7,
+    slug: "kosmiskt-oga",
+    title: "Kosmiskt öga",
+    subtitle: "Ur det blå djupet",
+    description:
+      "En mystisk komposition i blått med ett kosmiskt öga i centrum, omgivet av slingrande former och runor. Verket väcker frågor om synlighet, medvetande och det dolda – teman djupt rotade i nordisk mytologi.",
+    medium: "Akryl på trä",
+    image: "/images/07-kosmiskt-oga.jpg",
+    price: 1900,
+    forSale: true,
+    stripeLink: "#stripe-kosmiskt-oga",
+    sold: false,
+  },
+  {
+    id: 8,
+    slug: "stendrak",
+    title: "Stendrak",
+    subtitle: "Sten och orm på grönt",
+    description:
+      "En orm slingrar sig runt en gråsvart sten mot en mörk grön bakgrund. Knutverket i kanterna för tankarna till de stora runstensmonumenten. Verket är en av de mer intima och stillsamma kompositionerna.",
+    medium: "Akryl och brännteknik på trä",
+    image: "/images/08-stendrak.jpg",
+    price: 2400,
+    forSale: true,
+    stripeLink: "#stripe-stendrak",
+    sold: false,
+  },
+  {
+    id: 9,
+    slug: "fenrir",
+    title: "Fenrir",
+    subtitle: "Ulven på rött",
+    description:
+      "Fenrir – asarnas störste fiende och Lokis son – framträder i silver och grått mot blodrött. Den formade träskivan förstärker känslan av ett levande väsen som bryter sig ur bildramen. Runorna bär hans namn och öde.",
+    medium: "Akryl på formskuren träskiva",
+    image: "/images/09-fenrir.jpg",
+    price: 3200,
+    forSale: true,
+    stripeLink: "#stripe-fenrir",
+    sold: false,
+  },
+  {
+    id: 10,
+    slug: "seidkona",
+    title: "Seiðkona",
+    subtitle: "Volvans syn",
+    description:
+      "En kvinna i blå dräkt håller en stav och manas fram av ormarnas runor. Motivet bygger på Völuspás volvafigur – den sierska som ser bortom tidens gränser. Runbandet bär hennes profetia.",
+    medium: "Brännteknik och akryl på trä",
+    image: "/images/10-seidkona.jpg",
+    price: 2800,
+    forSale: true,
+    stripeLink: "#stripe-seidkona",
+    sold: false,
+  },
+  {
+    id: 11,
+    slug: "hjortdraken",
+    title: "Hjortdraken",
+    subtitle: "Tre band i guld, rött och blått",
+    description:
+      "En stor komposition i grå, röd och blå med en drake vars huvud bär hjortliknande horn. Tre sammanflätade runband löper genom verket. Motivet anspelar på de keltiska och nordiska influenser som möttes under vikingatiden.",
+    medium: "Akryl på trä, storformat",
+    image: "/images/11-hjortdraken.jpg",
+    price: 5500,
+    forSale: true,
+    stripeLink: "#stripe-hjortdraken",
+    sold: false,
+  },
+  {
+    id: 12,
+    slug: "draupnir",
+    title: "Draupnir",
+    subtitle: "Ringens orm",
+    description:
+      "En orm med lysande blått öga slingrar sig runt Odens guldring Draupnir. Den klarröda kroppen mot svart bakgrund skapar en dramatisk kontrast. Runbandet bär en text om den eviga återkomsten.",
+    medium: "Akryl på trä",
+    image: "/images/12-draupnir.jpg",
+    price: 2600,
+    forSale: true,
+    stripeLink: "#stripe-draupnir",
+    sold: false,
+  },
+  {
+    id: 13,
+    slug: "vikingataget",
+    title: "Vikingatåget",
+    subtitle: "Fris med djur och runor",
+    description:
+      "En lång horisontell fris med djur, knutverk och runor i djupgrön och guld. Verket är ett av de mest detaljrika och berättar om en resa – djuren är hämtade ur eddans djursymbolik och löper från vänster till höger i en oändlig rörelse.",
+    medium: "Akryl och brännteknik på trä, långformat",
+    image: "/images/13-vikingataget.jpg",
+    price: 4800,
+    forSale: true,
+    stripeLink: "#stripe-vikingataget",
+    sold: false,
+  },
+  {
+    id: 14,
+    slug: "bla-ormflata",
+    title: "Blå ormfläta",
+    subtitle: "Två ormar på kungligt blått",
+    description:
+      "Två ormar – en grön och en benvit – slingrar sig samman mot djupblå bakgrund. Knutverket i hörnen och de röda ögonen ger verket liv och rörelse. Runbandet som löper runt bär text ur Hávamál.",
+    medium: "Akryl på trä",
+    image: "/images/14-bla-ormflata.jpg",
+    price: 2400,
+    forSale: true,
+    stripeLink: "#stripe-bla-ormflata",
+    sold: false,
+  },
+];

@@ -1,0 +1,33 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #0c0a08;
+  --bg-alt:     #151009;
+  --surface:    #1e1710;
+  --surface-2:  #2a2016;
+  --gold:       #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim:   #7a6128;
+  --cream:      #f0e4c8;
+  --text:       #d0bfa0;
+  --text-muted: #7a6e5a;
+  --red:        #8b1f1f;
+  --border:     #2e2418;
+  --radius:     6px;
+  --shadow:     0 4px 24px rgba(0,0,0,.7);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+img { display: block; max-width: 100%; }
+a { color: var(--gold); text-decoration: none; }
+a:hover { color: var(--gold-light); }
