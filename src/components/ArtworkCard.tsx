@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Artwork } from '../data/artworks'
 import './ArtworkCard.css'
 
@@ -11,6 +12,8 @@ function formatPrice(price: number) {
 }
 
 export default function ArtworkCard({ artwork, onClick }: Props) {
+  const [loaded, setLoaded] = useState(false)
+
   const badge = artwork.sold
     ? <span className="card__badge card__badge--sold">Sold</span>
     : artwork.forSale
@@ -21,11 +24,14 @@ export default function ArtworkCard({ artwork, onClick }: Props) {
     <article className="card" onClick={onClick} role="button" tabIndex={0}
       onKeyDown={e => e.key === 'Enter' && onClick()}>
       <div className="card__img-wrap">
+        {!loaded && <div className="card__shimmer" aria-hidden="true" />}
         <img
-          className="card__img"
+          className={`card__img${loaded ? ' card__img--loaded' : ''}`}
           src={artwork.image}
           alt={artwork.title}
           loading="lazy"
+          decoding="async"
+          onLoad={() => setLoaded(true)}
         />
         <div className="card__overlay">
           <span className="card__overlay-text">View</span>

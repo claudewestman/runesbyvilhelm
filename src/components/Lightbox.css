@@ -38,6 +38,7 @@
 
 /* Image pane */
 .lightbox__img-wrap {
+  position: relative;
   background: #0a0806;
   display: flex;
   align-items: center;
@@ -46,10 +47,31 @@
   min-height: 300px;
 }
 
+/* Shimmer for lightbox */
+.lightbox__shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--surface) 0%,
+    var(--surface-2) 40%,
+    var(--surface) 80%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
 .lightbox__img {
+  position: relative;
   max-width: 100%;
   max-height: 90vh;
   object-fit: contain;
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+
+.lightbox__img--loaded {
+  opacity: 1;
 }
 
 /* Info pane */

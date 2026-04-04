@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Artwork } from '../data/artworks'
 import './Lightbox.css'
 
@@ -15,6 +15,10 @@ function formatPrice(price: number) {
 
 export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
   const touchStartX = useRef(0)
+  const [imgLoaded, setImgLoaded] = useState(false)
+
+  // Reset loaded state when artwork changes
+  useEffect(() => { setImgLoaded(false) }, [artwork.id])
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -56,7 +60,14 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
     >
       <div className="lightbox__inner">
         <div className="lightbox__img-wrap">
-          <img className="lightbox__img" src={artwork.image} alt={artwork.title} />
+          {!imgLoaded && <div className="lightbox__shimmer" aria-hidden="true" />}
+          <img
+            className={`lightbox__img${imgLoaded ? ' lightbox__img--loaded' : ''}`}
+            src={artwork.image}
+            alt={artwork.title}
+            decoding="async"
+            onLoad={() => setImgLoaded(true)}
+          />
         </div>
 
         <div className="lightbox__info">
