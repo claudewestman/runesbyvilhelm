@@ -25,7 +25,6 @@ export const artworks: Artwork[] = [
     image: "/images/01-yggdrasil.png",
     price: 3800,
     forSale: false,
-
     sold: false,
   },
   {
@@ -39,7 +38,6 @@ export const artworks: Artwork[] = [
     image: "/images/02-tvenne-ormar.png",
     price: 2200,
     forSale: false,
-
     sold: false,
   },
   {
@@ -53,7 +51,6 @@ export const artworks: Artwork[] = [
     image: "/images/03-drakrunsten.png",
     price: 4500,
     forSale: false,
-
     sold: false,
   },
   {
@@ -67,7 +64,6 @@ export const artworks: Artwork[] = [
     image: "/images/04-hjartormar.png",
     price: 1800,
     forSale: false,
-
     sold: false,
   },
   {
@@ -81,7 +77,6 @@ export const artworks: Artwork[] = [
     image: "/images/05-nidhogr.png",
     price: 2600,
     forSale: false,
-
     sold: false,
   },
   {
@@ -95,7 +90,6 @@ export const artworks: Artwork[] = [
     image: "/images/06-tvahovdad.png",
     price: 2000,
     forSale: false,
-
     sold: false,
   },
   {
@@ -109,7 +103,6 @@ export const artworks: Artwork[] = [
     image: "/images/07-kosmiskt-oga.png",
     price: 1900,
     forSale: false,
-
     sold: false,
   },
   {
@@ -123,7 +116,6 @@ export const artworks: Artwork[] = [
     image: "/images/08-stendrak.png",
     price: 2400,
     forSale: false,
-
     sold: false,
   },
   {
@@ -137,7 +129,6 @@ export const artworks: Artwork[] = [
     image: "/images/09-fenrir.png",
     price: 3200,
     forSale: false,
-
     sold: false,
   },
   {
@@ -151,8 +142,7 @@ export const artworks: Artwork[] = [
     image: "/images/10-seidkona.png",
     price: 2800,
     forSale: false,
-
-    sold: false,
+    sold: true,
   },
   {
     id: 11,
@@ -165,7 +155,6 @@ export const artworks: Artwork[] = [
     image: "/images/11-hjortdraken.png",
     price: 5500,
     forSale: false,
-
     sold: false,
   },
   {
@@ -179,7 +168,6 @@ export const artworks: Artwork[] = [
     image: "/images/12-draupnir.png",
     price: 2600,
     forSale: false,
-
     sold: false,
   },
   {
@@ -192,7 +180,6 @@ export const artworks: Artwork[] = [
     image: "/images/13-sigurd-fafnir.png",
     price: 10000,
     forSale: true,
-
     sold: false,
   },
   {
@@ -206,7 +193,6 @@ export const artworks: Artwork[] = [
     image: "/images/14-bla-ormflata.png",
     price: 2400,
     forSale: false,
-
     sold: false,
   },
 ];
