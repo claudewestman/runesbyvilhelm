@@ -184,16 +184,15 @@ export const artworks: Artwork[] = [
   },
   {
     id: 13,
-    slug: "vikingataget",
-    title: "The Viking Journey",
-    subtitle: "Frieze with beasts and runes",
-    description:
-      "A long horizontal frieze with animals, interlace and runes in deep green and gold. One of the most detailed pieces in the collection – it tells of a journey. The animals are drawn from Eddic symbolism and move left to right in an endless procession.",
+    slug: "sigurd-fafnir",
+    title: "Sigurd slays Fafnir",
+    subtitle: "Fáfnismál - The Lay of Fáfnir",
+    description: "The fear-helm surely no man shields When he faces a valiant foe;Oft one finds, when the foe he meets,That he is not the bravest of all.",
     medium: "Acrylic and pyrography on wood, long format",
-    image: "/images/13-vikingataget.png",
+    image: "/images/13-sigurdr-fafnir.png",
     price: 4800,
     forSale: true,
-    stripeLink: "#stripe-vikingataget",
+    stripeLink: "#stripe-sigurd-fafnir",
     sold: true,
   },
   {
