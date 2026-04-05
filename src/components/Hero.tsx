@@ -1,6 +1,6 @@
 import './Hero.css'
 
-const RUNES_TOP = 'ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ · ᚼ ᚾ ᛁ ᛅ ᛋ ᛏ ᛒ ᛘ ᛚ ᛦ'
+const RUNES_TOP = 'ᚠ ᚢ ᚦ ᚬ ᚱ ᚴ ᚼ ᚾ ᛁ ᛅ ᛋ ᛏ ᛒ ᛘ ᛚ ᛦ'
 
 export default function Hero() {
   return (
@@ -15,7 +15,7 @@ export default function Hero() {
           and authentic Viking Age inscriptions. Every piece is unique and carries its own runic text.
         </p>
         <p className="hero__runes hero__runes--bottom">
-          ᛏᚢᛚᚴᚢᚦᚱ · ᚠᚢᚦᚨᚱᚲ · ᚼᚾᛁᛅᛋᛏᛒᛘᛚᛦ
+          ᚢᛁᛚᚼᛁᛅᛚᛘᛦ · ᚴᛁᛅᚱᚦᛁ · ᚱᚢᚾᛅᛦ ᚦᛁᛋᛅᛦ
         </p>
       </div>
     </header>
