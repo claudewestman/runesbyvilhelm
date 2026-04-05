@@ -191,10 +191,10 @@ export const artworks: Artwork[] = [
       "A long horizontal frieze with animals, interlace and runes in deep green and gold. One of the most detailed pieces in the collection – it tells of a journey. The animals are drawn from Eddic symbolism and move left to right in an endless procession.",
     medium: "Acrylic and pyrography on wood, long format",
     image: "/images/13-vikingataget.png",
-    price: 4800,
+    price: 7000,
     forSale: true,
-    stripeLink: "#stripe-vikingataget",
-    sold: true,
+    stripeLink: "https://buy.stripe.com/test_eVq6oG54H5lG9440g64Vy00",
+    sold: false,
   },
   {
     id: 14,
@@ -209,19 +209,5 @@ export const artworks: Artwork[] = [
     forSale: true,
     stripeLink: "#stripe-bla-ormflata",
     sold: true,
-  },
-  {
-    id: 15,
-    slug: "sigurd-slays-fafnir",
-    title: "Sigurd Slays Fafnir",
-    subtitle: "The dragonslayer",
-    description:
-      "Sigurd drives his sword Gram into the heart of the dragon Fafnir, seizing the cursed gold of the Nibelungs. The runic band carries the Eddic verse of the slaying, carved in the Younger Futhark.",
-    medium: "Acrylic and pyrography on wood",
-    image: "/images/15-sigurd-slays-fafnir.png",
-    price: 7000,
-    forSale: true,
-    stripeLink: "https://buy.stripe.com/test_eVq6oG54H5lG9440g64Vy00",
-    sold: false,
   },
 ];
