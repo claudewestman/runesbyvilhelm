@@ -189,7 +189,7 @@ export const artworks: Artwork[] = [
     subtitle: "Fáfnismál - The Lay of Fáfnir",
     description: "The fear-helm surely no man shields When he faces a valiant foe;Oft one finds, when the foe he meets,That he is not the bravest of all.",
     medium: "Acrylic and pyrography on wood, long format",
-    image: "/images/13-sigurdr-fafnir.png",
+    image: "/images/13-sigurd-fafnir.png",
     price: 4800,
     forSale: true,
     stripeLink: "#stripe-sigurd-fafnir",
