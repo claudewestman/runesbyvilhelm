@@ -1,6 +1,5 @@
 import './Footer.css'
 
-const RUNES_TOP = 'ᚠ ᚢ ᚦ ᚬ ᚱ ᚴ ᚼ ᚾ ᛁ ᛅ ᛋ ᛏ ᛒ ᛘ ᛚ ᛦ'
 
 export default function Footer() {
   return (
@@ -30,6 +29,9 @@ export default function Footer() {
         </a>
       </nav>
       <p className="footer__copy">© Vilhelm Westman — All rights reserved</p>
+      <p className="footer__legal">
+        <a href="/privacy.html">Privacy Policy</a>
+      </p>
       <p className="footer__runes">Powered by Kattbjörn</p>
     </footer>
   )
