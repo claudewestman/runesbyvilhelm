@@ -9,7 +9,7 @@ export interface Artwork {
   price: number;
   forSale: boolean;
   /** Stripe Payment Link URL – create at dashboard.stripe.com/payment-links */
-  stripeLink: string;
+  stripeLink?: string;
   sold: boolean;
 }
 
@@ -25,7 +25,6 @@ export const artworks: Artwork[] = [
     image: "/images/01-yggdrasil.png",
     price: 360,
     forSale: true,
-    stripeLink: "#stripe-yggdrasil",
     sold: true,
   },
   {
@@ -39,7 +38,6 @@ export const artworks: Artwork[] = [
     image: "/images/02-tvenne-ormar.png",
     price: 210,
     forSale: true,
-    stripeLink: "#stripe-tvenne-ormar",
     sold: true,
   },
   {
@@ -53,7 +51,6 @@ export const artworks: Artwork[] = [
     image: "/images/03-drakrunsten.png",
     price: 430,
     forSale: true,
-    stripeLink: "#stripe-drakrunsten",
     sold: true,
   },
   {
@@ -67,7 +64,6 @@ export const artworks: Artwork[] = [
     image: "/images/04-hjartormar.png",
     price: 170,
     forSale: true,
-    stripeLink: "#stripe-hjartormar",
     sold: true,
   },
   {
@@ -81,7 +77,6 @@ export const artworks: Artwork[] = [
     image: "/images/05-nidhogr.png",
     price: 250,
     forSale: true,
-    stripeLink: "#stripe-nidhogr",
     sold: true,
   },
   {
@@ -95,7 +90,6 @@ export const artworks: Artwork[] = [
     image: "/images/06-tvahovdad.png",
     price: 190,
     forSale: true,
-    stripeLink: "#stripe-tvahovdad",
     sold: true,
   },
   {
@@ -109,7 +103,6 @@ export const artworks: Artwork[] = [
     image: "/images/07-kosmiskt-oga.png",
     price: 180,
     forSale: true,
-    stripeLink: "#stripe-kosmiskt-oga",
     sold: true,
   },
   {
@@ -123,7 +116,6 @@ export const artworks: Artwork[] = [
     image: "/images/08-stendrak.png",
     price: 230,
     forSale: true,
-    stripeLink: "#stripe-stendrak",
     sold: true,
   },
   {
@@ -137,7 +129,6 @@ export const artworks: Artwork[] = [
     image: "/images/09-fenrir.png",
     price: 305,
     forSale: true,
-    stripeLink: "#stripe-fenrir",
     sold: true,
   },
   {
@@ -151,7 +142,6 @@ export const artworks: Artwork[] = [
     image: "/images/10-seidkona.png",
     price: 265,
     forSale: true,
-    stripeLink: "#stripe-seidkona",
     sold: true,
   },
   {
@@ -165,7 +155,6 @@ export const artworks: Artwork[] = [
     image: "/images/11-hjortdraken.png",
     price: 525,
     forSale: true,
-    stripeLink: "#stripe-hjortdraken",
     sold: true,
   },
   {
@@ -179,21 +168,18 @@ export const artworks: Artwork[] = [
     image: "/images/12-draupnir.png",
     price: 250,
     forSale: true,
-    stripeLink: "#stripe-draupnir",
     sold: true,
   },
   {
     id: 13,
-    slug: "vikingataget",
-    title: "The Viking Journey",
-    subtitle: "Frieze with beasts and runes",
-    description:
-      "A long horizontal frieze with animals, interlace and runes in deep green and gold. One of the most detailed pieces in the collection – it tells of a journey. The animals are drawn from Eddic symbolism and move left to right in an endless procession.",
+    slug: "sigurd-fafnir",
+    title: "Sigurd slays Fafnir",
+    subtitle: "Fáfnismál - The Lay of Fáfnir",
+    description: "The fear-helm surely no man shields When he faces a valiant foe;Oft one finds, when the foe he meets,That he is not the bravest of all.",
     medium: "Acrylic and pyrography on wood, long format",
     image: "/images/13-vikingataget.png",
     price: 665,
     forSale: true,
-    stripeLink: "https://buy.stripe.com/test_eVq6oG54H5lG9440g64Vy00",
     sold: false,
   },
   {
@@ -207,7 +193,6 @@ export const artworks: Artwork[] = [
     image: "/images/14-bla-ormflata.png",
     price: 230,
     forSale: true,
-    stripeLink: "#stripe-bla-ormflata",
     sold: true,
   },
 ];
