@@ -84,14 +84,18 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
             ) : artwork.forSale ? (
               <>
                 <span className="lb-price">{formatPrice(artwork.price)}</span>
-                <a
+                {
+                  artwork.stripeLink ? (<a
                   className="lb-buy-btn"
                   href={artwork.stripeLink}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Purchase this piece
-                </a>
+                </a>) : (
+                    <span className="lb-contact">Contact for purchase</span>
+                  )
+                }
               </>
             ) : null}
           </div>

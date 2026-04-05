@@ -9,7 +9,7 @@ export interface Artwork {
   price: number;
   forSale: boolean;
   /** Stripe Payment Link URL – create at dashboard.stripe.com/payment-links */
-  stripeLink: string;
+  stripeLink?: string;
   sold: boolean;
 }
 
@@ -25,7 +25,7 @@ export const artworks: Artwork[] = [
     image: "/images/01-yggdrasil.png",
     price: 3800,
     forSale: false,
-    stripeLink: "#stripe-yggdrasil",
+
     sold: false,
   },
   {
@@ -39,7 +39,7 @@ export const artworks: Artwork[] = [
     image: "/images/02-tvenne-ormar.png",
     price: 2200,
     forSale: false,
-    stripeLink: "#stripe-tvenne-ormar",
+
     sold: false,
   },
   {
@@ -53,7 +53,7 @@ export const artworks: Artwork[] = [
     image: "/images/03-drakrunsten.png",
     price: 4500,
     forSale: false,
-    stripeLink: "#stripe-drakrunsten",
+
     sold: false,
   },
   {
@@ -67,7 +67,7 @@ export const artworks: Artwork[] = [
     image: "/images/04-hjartormar.png",
     price: 1800,
     forSale: false,
-    stripeLink: "#stripe-hjartormar",
+
     sold: false,
   },
   {
@@ -81,7 +81,7 @@ export const artworks: Artwork[] = [
     image: "/images/05-nidhogr.png",
     price: 2600,
     forSale: false,
-    stripeLink: "#stripe-nidhogr",
+
     sold: false,
   },
   {
@@ -95,7 +95,7 @@ export const artworks: Artwork[] = [
     image: "/images/06-tvahovdad.png",
     price: 2000,
     forSale: false,
-    stripeLink: "#stripe-tvahovdad",
+
     sold: false,
   },
   {
@@ -109,7 +109,7 @@ export const artworks: Artwork[] = [
     image: "/images/07-kosmiskt-oga.png",
     price: 1900,
     forSale: false,
-    stripeLink: "#stripe-kosmiskt-oga",
+
     sold: false,
   },
   {
@@ -123,7 +123,7 @@ export const artworks: Artwork[] = [
     image: "/images/08-stendrak.png",
     price: 2400,
     forSale: false,
-    stripeLink: "#stripe-stendrak",
+
     sold: false,
   },
   {
@@ -137,7 +137,7 @@ export const artworks: Artwork[] = [
     image: "/images/09-fenrir.png",
     price: 3200,
     forSale: false,
-    stripeLink: "#stripe-fenrir",
+
     sold: false,
   },
   {
@@ -151,7 +151,7 @@ export const artworks: Artwork[] = [
     image: "/images/10-seidkona.png",
     price: 2800,
     forSale: false,
-    stripeLink: "#stripe-seidkona",
+
     sold: false,
   },
   {
@@ -165,7 +165,7 @@ export const artworks: Artwork[] = [
     image: "/images/11-hjortdraken.png",
     price: 5500,
     forSale: false,
-    stripeLink: "#stripe-hjortdraken",
+
     sold: false,
   },
   {
@@ -179,7 +179,7 @@ export const artworks: Artwork[] = [
     image: "/images/12-draupnir.png",
     price: 2600,
     forSale: false,
-    stripeLink: "#stripe-draupnir",
+
     sold: false,
   },
   {
@@ -192,7 +192,7 @@ export const artworks: Artwork[] = [
     image: "/images/13-sigurd-fafnir.png",
     price: 10000,
     forSale: true,
-    stripeLink: "",//"https://buy.stripe.com/14AdR840LaAk4qk1QDdEs00",
+
     sold: false,
   },
   {
@@ -206,7 +206,7 @@ export const artworks: Artwork[] = [
     image: "/images/14-bla-ormflata.png",
     price: 2400,
     forSale: false,
-    stripeLink: "#stripe-bla-ormflata",
+
     sold: false,
   },
 ];
