@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Artwork } from '../data/artworks'
+import { formatPrice } from '../utils/formatPrice'
 import './Lightbox.css'
 
 interface Props {
@@ -7,10 +8,6 @@ interface Props {
   onClose: () => void
   onPrev: () => void
   onNext: () => void
-}
-
-function formatPrice(price: number) {
-  return price.toLocaleString('sv-SE') + ' kr'
 }
 
 export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
