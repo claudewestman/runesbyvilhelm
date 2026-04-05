@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Artwork } from '../data/artworks'
 import { thumbnailSrc } from '../utils/imagePaths'
+import { formatPrice } from '../utils/formatPrice'
 import './ArtworkCard.css'
 
 interface Props {
@@ -8,9 +9,6 @@ interface Props {
   onClick: () => void
 }
 
-function formatPrice(price: number) {
-  return price.toLocaleString('sv-SE') + ' kr'
-}
 
 export default function ArtworkCard({ artwork, onClick }: Props) {
   const [loaded, setLoaded] = useState(false)
