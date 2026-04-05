@@ -12,7 +12,46 @@
   letter-spacing: .2em;
   text-transform: uppercase;
   text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Filter buttons */
+.gallery-filters {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
   margin-bottom: 2.5rem;
+}
+
+.gallery-filter {
+  font-family: 'Cinzel', serif;
+  font-size: .75rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text-muted);
+  padding: .45em 1.2em;
+  cursor: pointer;
+  transition: border-color .2s, color .2s, background .2s;
+}
+
+.gallery-filter:hover {
+  border-color: var(--gold-dim);
+  color: var(--text);
+}
+
+.gallery-filter--active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #0a0806;
+}
+
+.gallery-filter--active:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: #0a0806;
 }
 
 .gallery-grid {
