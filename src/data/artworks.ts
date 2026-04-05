@@ -192,7 +192,7 @@ export const artworks: Artwork[] = [
     image: "/images/13-sigurd-fafnir.png",
     price: 7000,
     forSale: true,
-    stripeLink: "https://buy.stripe.com/test_eVq6oG54H5lG9440g64Vy00",
+    stripeLink: "https://buy.stripe.com/14AdR840LaAk4qk1QDdEs00",
     sold: false,
   },
   {
