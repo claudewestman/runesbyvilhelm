@@ -86,6 +86,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <script>
+      // Restore path from GitHub Pages 404 redirect
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          })
+          window.history.replaceState(null, null,
+            decoded[0] + (decoded[1] ? '?' + decoded[1] : '') + l.hash
+          )
+        }
+      }(window.location))
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
