@@ -10,7 +10,41 @@
   letter-spacing: .3em;
   color: var(--gold-dim);
   user-select: none;
-  margin-bottom: .75rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: 'Cinzel', serif;
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color .2s ease;
+}
+
+.footer__social-link:hover {
+  color: var(--gold);
+}
+
+.footer__social-sep {
+  color: var(--border);
+}
+
+.footer__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
 }
 
 .footer__copy {
