@@ -190,9 +190,9 @@ export const artworks: Artwork[] = [
     description: "The fear-helm surely no man shields When he faces a valiant foe;Oft one finds, when the foe he meets,That he is not the bravest of all.",
     medium: "Acrylic and pyrography on wood, long format",
     image: "/images/13-sigurd-fafnir.png",
-    price: 7000,
+    price: 10000,
     forSale: true,
-    stripeLink: "https://buy.stripe.com/14AdR840LaAk4qk1QDdEs00",
+    stripeLink: "",//"https://buy.stripe.com/14AdR840LaAk4qk1QDdEs00",
     sold: false,
   },
   {
