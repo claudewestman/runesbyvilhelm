@@ -118,6 +118,7 @@ export default function AdminPage() {
                     <th>Slug</th>
                     <th>Title</th>
                     <th>Subtitle</th>
+                    <th>Description</th>
                     <th>Medium</th>
                     <th>Image</th>
                     <th>Price&nbsp;(USD)</th>
@@ -150,6 +151,13 @@ export default function AdminPage() {
                           className="admin__input"
                           value={a.subtitle}
                           onChange={e => updateField(a.id, 'subtitle', e.target.value)}
+                        />
+                      </td>
+                      <td>
+                        <textarea
+                          className="admin__input admin__textarea"
+                          value={a.description}
+                          onChange={e => updateField(a.id, 'description', e.target.value)}
                         />
                       </td>
                       <td>
