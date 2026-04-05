@@ -1,0 +1,208 @@
+.admin {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.admin-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: var(--text-muted);
+  font-family: 'Cinzel', serif;
+  font-size: .85rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+/* Header */
+.admin__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admin__logo {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.admin__header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin__msg {
+  font-size: .8rem;
+  font-family: 'Cinzel', serif;
+  letter-spacing: .05em;
+}
+
+.admin__msg--ok { color: #7ecb7e; }
+.admin__msg--err { color: #e07070; }
+
+.admin__signout {
+  font-family: 'Cinzel', serif;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: .4em .9em;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+
+.admin__signout:hover {
+  color: var(--cream);
+  border-color: var(--cream);
+}
+
+/* Main */
+.admin__main {
+  flex: 1;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.admin__toolbar {
+  margin-bottom: 1rem;
+}
+
+.admin__add {
+  background: var(--gold);
+  color: #0a0806;
+  font-family: 'Cinzel', serif;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 2px;
+  padding: .55em 1.2em;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.admin__add:hover { background: var(--gold-light); }
+
+/* Table */
+.admin__table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.admin__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .82rem;
+  color: var(--text);
+}
+
+.admin__table th {
+  background: var(--surface);
+  font-family: 'Cinzel', serif;
+  font-size: .65rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: .6rem .75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.admin__table td {
+  padding: .4rem .5rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.admin__table tr:last-child td { border-bottom: none; }
+
+.admin__row--dirty td { background: rgba(183, 144, 64, 0.06); }
+
+.admin__cell--id {
+  color: var(--text-muted);
+  font-size: .75rem;
+  text-align: center;
+}
+
+.admin__cell--center { text-align: center; }
+
+.admin__cell--actions {
+  display: flex;
+  gap: .4rem;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Inputs */
+.admin__input {
+  background: var(--bg);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: var(--cream);
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: .9rem;
+  padding: .3rem .45rem;
+  width: 160px;
+  transition: border-color .15s;
+  outline: none;
+}
+
+.admin__input:focus { border-color: var(--gold-dim); }
+.admin__input--sm { width: 120px; }
+.admin__input--num { width: 70px; }
+
+/* Buttons */
+.admin__save {
+  background: var(--gold);
+  color: #0a0806;
+  font-family: 'Cinzel', serif;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 2px;
+  padding: .35em .7em;
+  cursor: pointer;
+  transition: background .15s;
+  white-space: nowrap;
+}
+
+.admin__save:hover:not(:disabled) { background: var(--gold-light); }
+.admin__save:disabled { opacity: .4; cursor: not-allowed; }
+
+.admin__delete {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: .75rem;
+  border-radius: 2px;
+  padding: .3em .5em;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+  line-height: 1;
+}
+
+.admin__delete:hover {
+  color: #e07070;
+  border-color: #e07070;
+}
