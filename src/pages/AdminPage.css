@@ -170,6 +170,13 @@
 .admin__input--sm { width: 120px; }
 .admin__input--num { width: 70px; }
 
+.admin__textarea {
+  width: 220px;
+  height: 80px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
 /* Buttons */
 .admin__save {
   background: var(--gold);
