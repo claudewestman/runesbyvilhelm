@@ -210,4 +210,18 @@ export const artworks: Artwork[] = [
     stripeLink: "#stripe-bla-ormflata",
     sold: true,
   },
+  {
+    id: 15,
+    slug: "sigurd-slays-fafnir",
+    title: "Sigurd Slays Fafnir",
+    subtitle: "The dragonslayer",
+    description:
+      "Sigurd drives his sword Gram into the heart of the dragon Fafnir, seizing the cursed gold of the Nibelungs. The runic band carries the Eddic verse of the slaying, carved in the Younger Futhark.",
+    medium: "Acrylic and pyrography on wood",
+    image: "/images/15-sigurd-slays-fafnir.png",
+    price: 7000,
+    forSale: true,
+    stripeLink: "https://buy.stripe.com/test_eVq6oG54H5lG9440g64Vy00",
+    sold: false,
+  },
 ];
