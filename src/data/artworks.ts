@@ -90,7 +90,7 @@ export const artworks: Artwork[] = [
     image: "/images/06-tvahovdad.png",
     price: 2000,
     forSale: false,
-    sold: false,
+    sold: true,
   },
   {
     id: 7,
@@ -142,7 +142,7 @@ export const artworks: Artwork[] = [
     image: "/images/10-seidkona.png",
     price: 2800,
     forSale: false,
-    sold: true,
+    sold: false,
   },
   {
     id: 11,
