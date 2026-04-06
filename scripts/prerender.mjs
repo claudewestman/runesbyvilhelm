@@ -45,7 +45,8 @@ if (!artworks || artworks.length === 0) {
 console.log(`Prerendering ${artworks.length} artwork pages...`)
 
 for (const artwork of artworks) {
-  const pageUrl = `${BASE_URL}/artwork/${artwork.slug}`
+  // Trailing slash required! GitHub Pages redirects /artwork/slug to /artwork/slug/
+  const pageUrl = `${BASE_URL}/artwork/${artwork.slug}/`
   const pageTitle = `${artwork.title} – Runes by Vilhelm`
   const pageDesc = artwork.subtitle || artwork.description?.slice(0, 160) || ''
   const pageImage = artwork.image || `${BASE_URL}/og_image.jpg`
@@ -171,7 +172,7 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
     <priority>1.0</priority>
   </url>
 ${artworks.map(a => `  <url>
-    <loc>${BASE_URL}/artwork/${a.slug}</loc>
+    <loc>${BASE_URL}/artwork/${a.slug}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
