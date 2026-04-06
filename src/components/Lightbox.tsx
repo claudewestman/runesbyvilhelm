@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Artwork } from '../data/artworks'
 import { formatPrice } from '../utils/formatPrice'
+import { formatDimensions } from '../utils/formatDimensions'
 import './Lightbox.css'
 
 interface Props {
@@ -76,7 +77,12 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
           {artwork.translation && (
             <blockquote className="lb-translation">"{artwork.translation}"</blockquote>
           )}
-          <p className="lb-medium">{artwork.medium}</p>
+          <p className="lb-medium">
+            {artwork.medium}
+            {formatDimensions(artwork.height, artwork.width, artwork.depth) && (
+              <> · {formatDimensions(artwork.height, artwork.width, artwork.depth)}</>
+            )}
+          </p>
 
           {artwork.instagramId && (
             <a

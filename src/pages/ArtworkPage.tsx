@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useArtworksContext } from '../contexts/ArtworksContext'
 import { formatPrice } from '../utils/formatPrice'
+import { formatDimensions } from '../utils/formatDimensions'
 import Footer from '../components/Footer'
+import ShareLinks from '../components/ShareLinks'
 import './ArtworkPage.css'
 
 export default function ArtworkPage() {
@@ -86,7 +88,12 @@ export default function ArtworkPage() {
               </blockquote>
             )}
             <p className="artwork-page__description">{artwork.description}</p>
-            <p className="artwork-page__medium">{artwork.medium}</p>
+            <p className="artwork-page__medium">
+              {artwork.medium}
+              {formatDimensions(artwork.height, artwork.width, artwork.depth) && (
+                <> · {formatDimensions(artwork.height, artwork.width, artwork.depth)}</>
+              )}
+            </p>
 
             {artwork.instagramId && (
               <a
@@ -101,6 +108,12 @@ export default function ArtworkPage() {
                 View on Instagram
               </a>
             )}
+
+            <ShareLinks
+              url={`https://runesbyvilhelm.com/artwork/${artwork.slug}`}
+              title={`${artwork.title} – Runes by Vilhelm`}
+              image={artwork.image}
+            />
 
             <div className="artwork-page__purchase">
               {artwork.sold && (

@@ -8,7 +8,8 @@
     "thumbnails": "node scripts/thumbnails.mjs",
     "icons": "node scripts/icons.mjs",
     "build": "tsc -b && vite build",
-    "build:full": "npm run thumbnails && npm run build",
+    "prerender": "node scripts/prerender.mjs",
+    "build:full": "npm run thumbnails && npm run build && npm run prerender",
     "preview": "vite preview"
   },
   "dependencies": {

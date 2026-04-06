@@ -35,7 +35,7 @@ export default function AdminPage() {
     setTimeout(() => setMessage(null), 3500)
   }
 
-  function updateField(id: number, field: keyof Artwork, value: string | number | boolean) {
+  function updateField(id: number, field: keyof Artwork, value: string | number | boolean | undefined) {
     setArtworks(prev =>
       prev.map(a => (a.id === id ? { ...a, [field]: value, _dirty: true } : a))
     )
@@ -112,6 +112,9 @@ export default function AdminPage() {
       translation: '',
       medium: '',
       image: '/images/placeholder.png',
+      height: undefined,
+      width: undefined,
+      depth: undefined,
       price: 0,
       forSale: true,
       stripeLink: '',
@@ -169,6 +172,9 @@ export default function AdminPage() {
                     <th>Description</th>
                     <th>Translation</th>
                     <th>Medium</th>
+                    <th>H</th>
+                    <th>W</th>
+                    <th>D</th>
                     <th>Image</th>
                     <th>Price&nbsp;(USD)</th>
                     <th>For&nbsp;Sale</th>
@@ -222,6 +228,33 @@ export default function AdminPage() {
                           className="admin__input"
                           value={a.medium}
                           onChange={e => updateField(a.id, 'medium', e.target.value)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          className="admin__input admin__input--num"
+                          type="number"
+                          value={a.height ?? ''}
+                          placeholder="H"
+                          onChange={e => updateField(a.id, 'height', e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          className="admin__input admin__input--num"
+                          type="number"
+                          value={a.width ?? ''}
+                          placeholder="W"
+                          onChange={e => updateField(a.id, 'width', e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          className="admin__input admin__input--num"
+                          type="number"
+                          value={a.depth ?? ''}
+                          placeholder="D"
+                          onChange={e => updateField(a.id, 'depth', e.target.value ? Number(e.target.value) : undefined)}
                         />
                       </td>
                       <td>
