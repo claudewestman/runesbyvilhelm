@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "thumbnails": "node scripts/thumbnails.mjs",
+    "icons": "node scripts/icons.mjs",
     "build": "tsc -b && vite build",
     "build:full": "npm run thumbnails && npm run build",
     "preview": "vite preview"

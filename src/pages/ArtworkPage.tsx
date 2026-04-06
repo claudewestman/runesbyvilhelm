@@ -54,9 +54,12 @@ export default function ArtworkPage() {
           <div className="artwork-page__info">
             <h1 className="artwork-page__title">{artwork.title}</h1>
             <p className="artwork-page__subtitle">{artwork.subtitle}</p>
-
+            {artwork.translation && (
+              <blockquote className="artwork-page__translation">
+                "{artwork.translation}"
+              </blockquote>
+            )}
             <p className="artwork-page__description">{artwork.description}</p>
-            <p className="artwork-page__description">{artwork.translation}</p>
             <p className="artwork-page__medium">{artwork.medium}</p>
 
             <div className="artwork-page__purchase">

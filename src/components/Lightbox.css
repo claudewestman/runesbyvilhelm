@@ -110,6 +110,18 @@
   line-height: 1.75;
 }
 
+.lb-translation {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--gold-dim);
+  line-height: 1.65;
+  border-left: 2px solid var(--gold-dim);
+  padding-left: 1rem;
+  margin: 0.25rem 0;
+  opacity: 0.9;
+}
+
 .lb-medium {
   font-size: .85rem;
   color: var(--text-muted);

@@ -95,6 +95,18 @@
   line-height: 1.75;
 }
 
+.artwork-page__translation {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--gold-dim);
+  line-height: 1.7;
+  border-left: 2px solid var(--gold-dim);
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+  opacity: 0.9;
+}
+
 .artwork-page__medium {
   font-size: .85rem;
   color: var(--text-muted);
