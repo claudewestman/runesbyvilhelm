@@ -56,24 +56,28 @@ export default function ArtworkPage() {
             <p className="artwork-page__subtitle">{artwork.subtitle}</p>
 
             <p className="artwork-page__description">{artwork.description}</p>
+            <p className="artwork-page__description">{artwork.translation}</p>
             <p className="artwork-page__medium">{artwork.medium}</p>
 
             <div className="artwork-page__purchase">
-              {artwork.sold ? (
+              {artwork.sold && (
                 <span className="artwork-page__sold">Sold</span>
-              ) : artwork.forSale ? (
+              )}
+              {artwork.forSale && !artwork.sold && (
                 <>
                   <span className="artwork-page__price">{formatPrice(artwork.price)}</span>
-                  <a
-                    className="artwork-page__buy"
-                    href={artwork.stripeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Purchase this piece
-                  </a>
+                  {artwork.stripeLink && (
+                    <a
+                      className="artwork-page__buy"
+                      href={artwork.stripeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Purchase this piece
+                    </a>
+                  )}
                 </>
-              ) : null}
+              )}
             </div>
 
             <nav className="artwork-page__nav">
