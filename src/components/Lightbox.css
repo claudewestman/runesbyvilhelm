@@ -108,6 +108,7 @@
   font-size: 1rem;
   color: var(--text);
   line-height: 1.75;
+  white-space: pre-line;
 }
 
 .lb-translation {
@@ -120,6 +121,7 @@
   padding-left: 1rem;
   margin: 0.25rem 0;
   opacity: 0.9;
+  white-space: pre-line;
 }
 
 .lb-medium {

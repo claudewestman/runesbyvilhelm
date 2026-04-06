@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useArtworksContext } from '../contexts/ArtworksContext'
 import { formatPrice } from '../utils/formatPrice'
@@ -8,6 +8,7 @@ import './ArtworkPage.css'
 export default function ArtworkPage() {
   const { slug } = useParams<{ slug: string }>()
   const { artworks, loading, error } = useArtworksContext()
+  const [fullscreen, setFullscreen] = useState(false)
 
   const index = artworks.findIndex(a => a.slug === slug)
   const artwork = artworks[index]
@@ -21,6 +22,20 @@ export default function ArtworkPage() {
     }
     return () => { document.title = 'Runes by Vilhelm – Handcrafted Viking Age Rune Carvings' }
   }, [artwork])
+
+  // Close fullscreen on Escape
+  useEffect(() => {
+    if (!fullscreen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setFullscreen(false)
+    }
+    document.body.style.overflow = 'hidden'
+    globalThis.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      globalThis.removeEventListener('keydown', onKey)
+    }
+  }, [fullscreen])
 
   if (loading) {
     return <div className="artwork-page__status">Loading…</div>
@@ -44,11 +59,22 @@ export default function ArtworkPage() {
 
         <div className="artwork-page__layout">
           <div className="artwork-page__img-wrap">
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
             <img
               className="artwork-page__img"
               src={artwork.image}
               alt={artwork.title}
+              onClick={() => setFullscreen(true)}
             />
+            <button
+              className="artwork-page__fullscreen-btn"
+              onClick={() => setFullscreen(true)}
+              aria-label="View fullscreen"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+              </svg>
+            </button>
           </div>
 
           <div className="artwork-page__info">
@@ -110,6 +136,29 @@ export default function ArtworkPage() {
           </div>
         </div>
       </div>
+
+      {fullscreen && (
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+        <dialog
+          className="artwork-page__fullscreen"
+          open
+          onClick={e => e.target === e.currentTarget && setFullscreen(false)}
+        >
+          <img
+            className="artwork-page__fullscreen-img"
+            src={artwork.image}
+            alt={artwork.title}
+          />
+          <button
+            className="artwork-page__fullscreen-close"
+            onClick={() => setFullscreen(false)}
+            aria-label="Close fullscreen"
+          >
+            ✕
+          </button>
+        </dialog>
+      )}
+
       <Footer />
     </>
   )
