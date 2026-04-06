@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import LoginForm from '../components/LoginForm'
 import { supabase } from '../lib/supabase'
@@ -12,7 +12,9 @@ export default function AdminPage() {
   const [artworks, setArtworks] = useState<EditableArtwork[]>([])
   const [dataLoading, setDataLoading] = useState(false)
   const [saving, setSaving] = useState<number | null>(null)
+  const [uploading, setUploading] = useState<number | null>(null)
   const [message, setMessage] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
+  const fileInputRefs = useRef<Map<number, HTMLInputElement>>(new Map())
 
   useEffect(() => {
     if (!user) return
@@ -39,6 +41,51 @@ export default function AdminPage() {
     )
   }
 
+  async function uploadImage(artworkId: number, file: File) {
+    setUploading(artworkId)
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'png'
+    const filename = `${artworkId}-${Date.now()}.${ext}`
+    
+    const { error: uploadError } = await supabase.storage
+      .from('artworks')
+      .upload(filename, file, { cacheControl: '31536000', upsert: true })
+    
+    if (uploadError) {
+      showMsg('err', uploadError.message)
+      setUploading(null)
+      return
+    }
+
+    const { data: urlData } = supabase.storage
+      .from('artworks')
+      .getPublicUrl(filename)
+    
+    const publicUrl = urlData.publicUrl
+    
+    // Update in database
+    const { error: dbError } = await supabase
+      .from('artworks')
+      .update({ image: publicUrl })
+      .eq('id', artworkId)
+    
+    setUploading(null)
+    
+    if (dbError) {
+      showMsg('err', dbError.message)
+    } else {
+      setArtworks(prev =>
+        prev.map(a => (a.id === artworkId ? { ...a, image: publicUrl } : a))
+      )
+      showMsg('ok', 'Image uploaded!')
+    }
+  }
+
+  function handleFileSelect(artworkId: number, e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (file) uploadImage(artworkId, file)
+    e.target.value = ''
+  }
+
   async function saveRow(artwork: EditableArtwork) {
     setSaving(artwork.id)
     const { _dirty, ...data } = artwork
@@ -62,6 +109,7 @@ export default function AdminPage() {
       title: 'New Artwork',
       subtitle: '',
       description: '',
+      translation: '',
       medium: '',
       image: '/images/placeholder.png',
       price: 0,
@@ -75,7 +123,7 @@ export default function AdminPage() {
   }
 
   async function deleteRow(id: number, title: string) {
-    if (!window.confirm(`Delete "${title}"?`)) return
+    if (!globalThis.confirm(`Delete "${title}"?`)) return
     const { error } = await supabase.from('artworks').delete().eq('id', id)
     if (error) showMsg('err', error.message)
     else {
@@ -119,6 +167,7 @@ export default function AdminPage() {
                     <th>Title</th>
                     <th>Subtitle</th>
                     <th>Description</th>
+                    <th>Translation</th>
                     <th>Medium</th>
                     <th>Image</th>
                     <th>Price&nbsp;(USD)</th>
@@ -161,6 +210,13 @@ export default function AdminPage() {
                         />
                       </td>
                       <td>
+                        <textarea
+                          className="admin__input admin__textarea"
+                          value={a.translation}
+                          onChange={e => updateField(a.id, 'translation', e.target.value)}
+                        />
+                      </td>
+                      <td>
                         <input
                           className="admin__input"
                           value={a.medium}
@@ -168,11 +224,27 @@ export default function AdminPage() {
                         />
                       </td>
                       <td>
-                        <input
-                          className="admin__input admin__input--sm"
-                          value={a.image}
-                          onChange={e => updateField(a.id, 'image', e.target.value)}
-                        />
+                        <div className="admin__image-cell">
+                          <img
+                            className="admin__image-preview"
+                            src={a.image}
+                            alt={a.title}
+                          />
+                          <input
+                            type="file"
+                            accept="image/*"
+                            hidden
+                            ref={el => { if (el) fileInputRefs.current.set(a.id, el) }}
+                            onChange={e => handleFileSelect(a.id, e)}
+                          />
+                          <button
+                            className="admin__upload-btn"
+                            disabled={uploading === a.id}
+                            onClick={() => fileInputRefs.current.get(a.id)?.click()}
+                          >
+                            {uploading === a.id ? '…' : 'Upload'}
+                          </button>
+                        </div>
                       </td>
                       <td>
                         <input

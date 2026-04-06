@@ -73,6 +73,7 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
             <p className="lb-subtitle">{artwork.subtitle}</p>
           </div>
           <p className="lb-description">{artwork.description}</p>
+          <p className="lb-translation">{artwork.translation}</p>
           <p className="lb-medium">{artwork.medium}</p>
 
           <div className="lb-price-row">
