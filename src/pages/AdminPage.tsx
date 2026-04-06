@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import LoginForm from '../components/LoginForm'
 import { supabase } from '../lib/supabase'
+import { compressImage } from '../utils/compressImage'
 import type { Artwork } from '../data/artworks'
 import './AdminPage.css'
 
@@ -43,12 +44,30 @@ export default function AdminPage() {
 
   async function uploadImage(artworkId: number, file: File) {
     setUploading(artworkId)
-    const ext = file.name.split('.').pop()?.toLowerCase() || 'png'
-    const filename = `${artworkId}-${Date.now()}.${ext}`
+    
+    // Compress image before upload (max 1200px, JPEG 85% quality)
+    let uploadBlob: Blob
+    try {
+      uploadBlob = await compressImage(file, 1200, 0.85)
+      const originalKB = Math.round(file.size / 1024)
+      const compressedKB = Math.round(uploadBlob.size / 1024)
+      console.log(`Image compressed: ${originalKB}KB → ${compressedKB}KB`)
+    } catch (err) {
+      showMsg('err', 'Failed to compress image')
+      setUploading(null)
+      return
+    }
+
+    // Always use .jpg since we compress to JPEG
+    const filename = `${artworkId}-${Date.now()}.jpg`
     
     const { error: uploadError } = await supabase.storage
       .from('artworks')
-      .upload(filename, file, { cacheControl: '31536000', upsert: true })
+      .upload(filename, uploadBlob, { 
+        cacheControl: '31536000', 
+        upsert: true,
+        contentType: 'image/jpeg'
+      })
     
     if (uploadError) {
       showMsg('err', uploadError.message)
