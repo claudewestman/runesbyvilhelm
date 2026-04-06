@@ -1,11 +1,10 @@
 /**
- * Generates PWA icons from favicon.svg
+ * Generates PWA icons from source-icon.png
  * Run: npm run icons
  */
 import sharp from 'sharp'
-import { readFileSync } from 'fs'
 
-const SVG = readFileSync('public/favicon.svg')
+const SOURCE = 'public/source-icon.png'
 const OUTPUT_DIR = 'public'
 
 const icons = [
@@ -13,26 +12,37 @@ const icons = [
   { name: 'icon-512.png', size: 512 },
   { name: 'icon-maskable-512.png', size: 512, maskable: true },
   { name: 'apple-touch-icon.png', size: 180 },
+  { name: 'favicon.png', size: 32 },
 ]
 
 for (const { name, size, maskable } of icons) {
-  let img = sharp(SVG).resize(size, size)
-  
-  // Maskable icons need extra padding (safe zone is ~80% of icon)
   if (maskable) {
+    // Maskable icons need ~10% padding for safe zone
     const padding = Math.round(size * 0.1)
-    img = sharp(SVG)
-      .resize(size - padding * 2, size - padding * 2)
-      .extend({
-        top: padding,
-        bottom: padding,
-        left: padding,
-        right: padding,
-        background: '#0c0a08'
-      })
+    const innerSize = size - padding * 2
+    
+    const resized = await sharp(SOURCE)
+      .resize(innerSize, innerSize)
+      .toBuffer()
+    
+    await sharp({
+      create: {
+        width: size,
+        height: size,
+        channels: 4,
+        background: { r: 128, g: 128, b: 128, alpha: 1 }
+      }
+    })
+      .composite([{ input: resized, left: padding, top: padding }])
+      .png()
+      .toFile(`${OUTPUT_DIR}/${name}`)
+  } else {
+    await sharp(SOURCE)
+      .resize(size, size)
+      .png()
+      .toFile(`${OUTPUT_DIR}/${name}`)
   }
   
-  await img.png().toFile(`${OUTPUT_DIR}/${name}`)
   console.log(`✓ ${name}`)
 }
 
