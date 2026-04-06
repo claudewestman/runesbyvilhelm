@@ -5,6 +5,7 @@ export interface Artwork {
   subtitle: string;
   description: string;
   translation: string;
+  instagramId?: string;
   medium: string;
   image: string;
   price: number;

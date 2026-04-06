@@ -174,6 +174,7 @@ export default function AdminPage() {
                     <th>For&nbsp;Sale</th>
                     <th>Sold</th>
                     <th>Stripe&nbsp;Link</th>
+                    <th>Instagram&nbsp;ID</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -273,6 +274,13 @@ export default function AdminPage() {
                           className="admin__input"
                           value={a.stripeLink}
                           onChange={e => updateField(a.id, 'stripeLink', e.target.value)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          className="admin__input"
+                          value={a.instagramId}
+                          onChange={e => updateField(a.id, 'instagramId', e.target.value)}
                         />
                       </td>
                       <td className="admin__cell--actions">
