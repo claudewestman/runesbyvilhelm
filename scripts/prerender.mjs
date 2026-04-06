@@ -92,6 +92,20 @@ for (const artwork of artworks) {
       '</head>',
       `${artworkScript}\n  </head>`
     )
+    // Update canonical URL (fixes circular redirect)
+    .replace(
+      /<link rel="canonical"[^>]*>/,
+      `<link rel="canonical" href="${pageUrl}" />`
+    )
+    // Update hreflang links
+    .replace(
+      /<link rel="alternate" hreflang="en"[^>]*>/,
+      `<link rel="alternate" hreflang="en" href="${pageUrl}" />`
+    )
+    .replace(
+      /<link rel="alternate" hreflang="x-default"[^>]*>/,
+      `<link rel="alternate" hreflang="x-default" href="${pageUrl}" />`
+    )
     // Update title
     .replace(
       /<title>[^<]*<\/title>/,
