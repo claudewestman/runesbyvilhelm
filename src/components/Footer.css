@@ -65,3 +65,60 @@
 .footer__legal a:hover {
   color: var(--gold);
 }
+
+.footer__newsletter {
+  max-width: 320px;
+  margin: 0 auto 1.5rem;
+}
+
+.footer__newsletter-label {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: .75rem;
+}
+
+.footer__newsletter-row {
+  display: flex;
+  gap: .5rem;
+}
+
+.footer__newsletter-input {
+  flex: 1;
+  padding: .6rem .9rem;
+  font-size: .9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+}
+
+.footer__newsletter-input::placeholder {
+  color: var(--text-muted);
+}
+
+.footer__newsletter-input:focus {
+  outline: none;
+  border-color: var(--gold-dim);
+}
+
+.footer__newsletter-btn {
+  padding: .6rem 1rem;
+  font-family: 'Cinzel', serif;
+  font-size: .75rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  background: var(--gold-dim);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.footer__newsletter-btn:hover {
+  background: var(--gold);
+}

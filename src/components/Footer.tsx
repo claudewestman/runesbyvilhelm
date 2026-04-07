@@ -28,6 +28,29 @@ export default function Footer() {
           Facebook
         </a>
       </nav>
+      <form
+        className="footer__newsletter"
+        action="https://buttondown.com/api/emails/embed-subscribe/runesbyvilhelm"
+        method="post"
+        target="_blank"
+      >
+        <label className="footer__newsletter-label" htmlFor="bd-email">
+          Get notified about new works
+        </label>
+        <div className="footer__newsletter-row">
+          <input
+            type="email"
+            name="email"
+            id="bd-email"
+            placeholder="Your email"
+            required
+            className="footer__newsletter-input"
+          />
+          <button type="submit" className="footer__newsletter-btn">
+            Subscribe
+          </button>
+        </div>
+      </form>
       <p className="footer__copy">© Vilhelm Westman — All rights reserved</p>
       <p className="footer__legal">
         <a href="/privacy.html">Privacy Policy</a>
