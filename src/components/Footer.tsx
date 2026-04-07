@@ -1,10 +1,11 @@
 import './Footer.css'
+import { RUNES_TOP } from './Hero'
 
 
 export default function Footer() {
   return (
     <footer className="footer">
-      <p className="footer__runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ · ᚼ ᚾ ᛁ ᛅ ᛋ ᛏ ᛒ ᛘ ᛚ ᛦ</p>
+      <p className="footer__runes">{RUNES_TOP}</p>
       <nav className="footer__social" aria-label="Social media">
         <a
           className="footer__social-link"
