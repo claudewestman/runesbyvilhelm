@@ -80,13 +80,13 @@ export default function ContactForm() {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="cf-motif">{t('contact.fields.motif')}</label>
+              <label className="form-label" htmlFor="cf-motif">{t('contact.fields.details')}</label>
               <input
                 className="form-input"
                 id="cf-motif"
                 name="motif"
                 type="text"
-                placeholder={t('contact.fields.motifPlaceholder')}
+                placeholder={t('contact.fields.detailsPlaceholder')}
                 disabled={status === 'submitting'}
               />
             </div>

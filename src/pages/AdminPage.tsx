@@ -4,15 +4,15 @@ import { useAuth } from '../hooks/useAuth'
 import LoginForm from '../components/LoginForm'
 import { supabase } from '../lib/supabase'
 import { compressImage } from '../utils/compressImage'
-import type { Artwork } from '../data/artworks'
+import type { Product } from '../data/artworks'
 import './AdminPage.css'
 
-type EditableArtwork = Artwork & { _dirty?: boolean }
+type EditableProduct = Product & { _dirty?: boolean }
 
 export default function AdminPage() {
   const { t } = useTranslation()
   const { user, loading: authLoading, signIn, signOut } = useAuth()
-  const [artworks, setArtworks] = useState<EditableArtwork[]>([])
+  const [artworks, setArtworks] = useState<EditableProduct[]>([])
   const [dataLoading, setDataLoading] = useState(false)
   const [saving, setSaving] = useState<number | null>(null)
   const [uploading, setUploading] = useState<number | null>(null)
@@ -23,12 +23,12 @@ export default function AdminPage() {
     if (!user) return
     setDataLoading(true)
     supabase
-      .from('artworks')
+      .from('products')
       .select('*')
       .order('id')
       .then(({ data, error }) => {
         if (error) showMsg('err', error.message)
-        else setArtworks(data as EditableArtwork[])
+        else setArtworks(data as EditableProduct[])
         setDataLoading(false)
       })
   }, [user])
@@ -38,7 +38,7 @@ export default function AdminPage() {
     setTimeout(() => setMessage(null), 3500)
   }
 
-  function updateField(id: number, field: keyof Artwork, value: string | number | boolean | undefined) {
+  function updateField(id: number, field: keyof Product, value: string | number | boolean | undefined) {
     setArtworks(prev =>
       prev.map(a => (a.id === id ? { ...a, [field]: value, _dirty: true } : a))
     )
@@ -64,7 +64,7 @@ export default function AdminPage() {
     const filename = `${artworkId}-${Date.now()}.jpg`
 
     const { error: uploadError } = await supabase.storage
-      .from('artworks')
+      .from('products')
       .upload(filename, uploadBlob, {
         cacheControl: '31536000',
         upsert: true,
@@ -78,14 +78,14 @@ export default function AdminPage() {
     }
 
     const { data: urlData } = supabase.storage
-      .from('artworks')
+      .from('products')
       .getPublicUrl(filename)
 
     const publicUrl = urlData.publicUrl
 
     // Update in database
     const { error: dbError } = await supabase
-      .from('artworks')
+      .from('products')
       .update({ image: publicUrl })
       .eq('id', artworkId)
 
@@ -107,11 +107,11 @@ export default function AdminPage() {
     e.target.value = ''
   }
 
-  async function saveRow(artwork: EditableArtwork) {
+  async function saveRow(artwork: EditableProduct) {
     setSaving(artwork.id)
     const { _dirty, ...data } = artwork
     const { error } = await supabase
-      .from('artworks')
+      .from('products')
       .update(data)
       .eq('id', artwork.id)
     setSaving(null)
@@ -124,14 +124,14 @@ export default function AdminPage() {
 
   async function addRow() {
     const maxId = artworks.reduce((m, a) => Math.max(m, a.id), 0)
-    const blank: Artwork = {
+    const blank: Product = {
       id: maxId + 1,
-      slug: `artwork-${maxId + 1}`,
-      title: 'New Artwork',
+      slug: `product-${maxId + 1}`,
+      title: 'New Product',
       subtitle: '',
       description: '',
-      translation: '',
-      medium: '',
+      note: '',
+      material: '',
       image: '/images/placeholder.png',
       height: undefined,
       width: undefined,
@@ -141,14 +141,14 @@ export default function AdminPage() {
       stripeLink: '',
       sold: false,
     }
-    const { error } = await supabase.from('artworks').insert(blank)
+    const { error } = await supabase.from('products').insert(blank)
     if (error) showMsg('err', error.message)
     else setArtworks(prev => [...prev, blank])
   }
 
   async function deleteRow(id: number, title: string) {
     if (!globalThis.confirm(t('admin.confirmDelete', { title }))) return
-    const { error } = await supabase.from('artworks').delete().eq('id', id)
+    const { error } = await supabase.from('products').delete().eq('id', id)
     if (error) showMsg('err', error.message)
     else {
       showMsg('ok', `"${title}" deleted.`)
@@ -176,11 +176,11 @@ export default function AdminPage() {
 
       <main className="admin__main">
         {dataLoading ? (
-          <p className="admin-status">{t('admin.loadingArtworks')}</p>
+          <p className="admin-status">{t('admin.loadingProducts')}</p>
         ) : (
           <>
             <div className="admin__toolbar">
-              <button className="admin__add" onClick={addRow}>{t('admin.addArtwork')}</button>
+              <button className="admin__add" onClick={addRow}>{t('admin.addProduct')}</button>
             </div>
             <div className="admin__table-wrap">
               <table className="admin__table">
@@ -191,8 +191,8 @@ export default function AdminPage() {
                     <th>{t('admin.columns.title')}</th>
                     <th>{t('admin.columns.subtitle')}</th>
                     <th>{t('admin.columns.description')}</th>
-                    <th>{t('admin.columns.translation')}</th>
-                    <th>{t('admin.columns.medium')}</th>
+                    <th>{t('admin.columns.note')}</th>
+                    <th>{t('admin.columns.material')}</th>
                     <th>{t('admin.columns.h')}</th>
                     <th>{t('admin.columns.w')}</th>
                     <th>{t('admin.columns.d')}</th>
@@ -201,7 +201,7 @@ export default function AdminPage() {
                     <th>{t('admin.columns.forSale')}</th>
                     <th>{t('admin.columns.sold')}</th>
                     <th>{t('admin.columns.stripeLink')}</th>
-                    <th>{t('admin.columns.instagramId')}</th>
+                    <th>{t('admin.columns.externalLink')}</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -240,15 +240,15 @@ export default function AdminPage() {
                       <td>
                         <textarea
                           className="admin__input admin__textarea"
-                          value={a.translation}
-                          onChange={e => updateField(a.id, 'translation', e.target.value)}
+                          value={a.note}
+                          onChange={e => updateField(a.id, 'note', e.target.value)}
                         />
                       </td>
                       <td>
                         <input
                           className="admin__input"
-                          value={a.medium}
-                          onChange={e => updateField(a.id, 'medium', e.target.value)}
+                          value={a.material}
+                          onChange={e => updateField(a.id, 'material', e.target.value)}
                         />
                       </td>
                       <td>
@@ -333,8 +333,8 @@ export default function AdminPage() {
                       <td>
                         <input
                           className="admin__input"
-                          value={a.instagramId}
-                          onChange={e => updateField(a.id, 'instagramId', e.target.value)}
+                          value={a.externalLink}
+                          onChange={e => updateField(a.id, 'externalLink', e.target.value)}
                         />
                       </td>
                       <td className="admin__cell--actions">

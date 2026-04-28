@@ -1,25 +1,25 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Artwork } from '../data/artworks'
+import type { Product } from '../data/artworks'
 import ArtworkCard from './ArtworkCard'
 import './Gallery.css'
 
 type Filter = 'all' | 'for-sale'
 
 interface Props {
-  readonly artworks: Artwork[]
+  readonly artworks: Product[]
   readonly onOpen: (index: number) => void
 }
 
-function matchesSearch(artwork: Artwork, query: string): boolean {
+function matchesSearch(product: Product, query: string): boolean {
   if (!query) return true
   const q = query.toLowerCase()
   return (
-    (artwork.title || '').toLowerCase().includes(q) ||
-    (artwork.subtitle || '').toLowerCase().includes(q) ||
-    (artwork.description || '').toLowerCase().includes(q) ||
-    (artwork.translation || '').toLowerCase().includes(q) ||
-    (artwork.medium || '').toLowerCase().includes(q)
+    (product.title || '').toLowerCase().includes(q) ||
+    (product.subtitle || '').toLowerCase().includes(q) ||
+    (product.description || '').toLowerCase().includes(q) ||
+    (product.note || '').toLowerCase().includes(q) ||
+    (product.material || '').toLowerCase().includes(q)
   )
 }
 

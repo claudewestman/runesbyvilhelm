@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { Artwork } from '../data/artworks'
+import type { Product } from '../data/artworks'
 import { thumbnailSrc } from '../utils/imagePaths'
 import { formatPrice } from '../utils/formatPrice'
 import './ArtworkCard.css'
 
 interface Props {
-  artwork: Artwork
+  artwork: Product
   onClick: () => void
 }
 
@@ -16,9 +16,9 @@ export default function ArtworkCard({ artwork, onClick }: Props) {
   const [loaded, setLoaded] = useState(false)
 
   const badge = artwork.sold
-    ? <span className="card__badge card__badge--sold">{t('artwork.card.sold')}</span>
+    ? <span className="card__badge card__badge--sold">{t('product.card.sold')}</span>
     : artwork.forSale
-      ? <span className="card__badge card__badge--sale">{t('artwork.card.forSale')}</span>
+      ? <span className="card__badge card__badge--sale">{t('product.card.forSale')}</span>
       : null
 
   return (
@@ -35,7 +35,7 @@ export default function ArtworkCard({ artwork, onClick }: Props) {
           onLoad={() => setLoaded(true)}
         />
         <div className="card__overlay">
-          <span className="card__overlay-text">{t('artwork.card.view')}</span>
+          <span className="card__overlay-text">{t('product.card.view')}</span>
         </div>
         {badge}
       </div>

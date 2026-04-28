@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import siteConfig from '../config/site'
 import { useArtworksContext } from '../contexts/ArtworksContext'
 import Hero from '../components/Hero'
 import Gallery from '../components/Gallery'
@@ -22,7 +23,7 @@ export default function GalleryPage() {
         {!loading && !error && (
           <Gallery
             artworks={artworks}
-            onOpen={index => navigate(`/artwork/${artworks[index].slug}`)}
+            onOpen={index => navigate(`/${siteConfig.productPath}/${artworks[index].slug}`)}
           />
         )}
         <About />

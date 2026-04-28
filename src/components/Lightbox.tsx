@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import type { Artwork } from '../data/artworks'
+import type { Product } from '../data/artworks'
 import { formatPrice } from '../utils/formatPrice'
 import { formatDimensions } from '../utils/formatDimensions'
 import './Lightbox.css'
 
 interface Props {
-  artwork: Artwork
+  artwork: Product
   onClose: () => void
   onPrev: () => void
   onNext: () => void
@@ -51,7 +51,7 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
       className="lightbox"
       role="dialog"
       aria-modal="true"
-      aria-label={`Artwork: ${artwork.title}`}
+      aria-label={artwork.title}
       onClick={handleBackdropClick}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -74,20 +74,20 @@ export default function Lightbox({ artwork, onClose, onPrev, onNext }: Props) {
             <p className="lb-subtitle">{artwork.subtitle}</p>
           </div>
           <p className="lb-description">{artwork.description}</p>
-          {artwork.translation && (
-            <blockquote className="lb-translation">"{artwork.translation}"</blockquote>
+          {artwork.note && (
+            <blockquote className="lb-translation">"{artwork.note}"</blockquote>
           )}
           <p className="lb-medium">
-            {artwork.medium}
+            {artwork.material}
             {formatDimensions(artwork.height, artwork.width, artwork.depth) && (
               <> · {formatDimensions(artwork.height, artwork.width, artwork.depth)}</>
             )}
           </p>
 
-          {artwork.instagramId && (
+          {artwork.externalLink && (
             <a
               className="lb-instagram"
-              href={`https://www.instagram.com/p/${artwork.instagramId}/`}
+              href={artwork.externalLink}
               target="_blank"
               rel="noopener noreferrer"
             >

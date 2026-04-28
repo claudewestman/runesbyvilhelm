@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react'
-import type { Artwork } from '../data/artworks'
+import type { Product } from '../data/artworks'
 import { useArtworks } from '../hooks/useArtworks'
 
 interface ArtworksContextValue {
-  artworks: Artwork[]
+  artworks: Product[]
   loading: boolean
   error: string | null
 }

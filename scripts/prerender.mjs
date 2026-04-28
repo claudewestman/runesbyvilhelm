@@ -1,8 +1,8 @@
 /**
- * Prerenders artwork pages with correct og:image meta tags.
+ * Prerenders product pages with correct og:image meta tags.
  * Run after build: npm run prerender
- * 
- * Generates /artwork/{slug}/index.html for each artwork with
+ *
+ * Generates /{productPath}/{slug}/index.html for each product with
  * proper Open Graph tags for social sharing.
  */
 import 'dotenv/config'
@@ -11,7 +11,8 @@ import { readFileSync, writeFileSync, mkdirSync } from 'fs'
 import { join } from 'path'
 
 const DIST_DIR = 'dist'
-const BASE_URL = 'https://runesbyvilhelm.com'
+const BASE_URL = process.env.VITE_BASE_URL ?? 'https://runesbyvilhelm.com'
+const PRODUCT_PATH = process.env.VITE_PRODUCT_PATH ?? 'artwork'
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY
@@ -26,40 +27,40 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 // Read the base index.html
 const baseHtml = readFileSync(join(DIST_DIR, 'index.html'), 'utf-8')
 
-// Fetch all artworks
-const { data: artworks, error } = await supabase
-  .from('artworks')
-  .select('slug, title, subtitle, description, image, medium, price, forSale, sold')
+// Fetch all products
+const { data: products, error } = await supabase
+  .from('products')
+  .select('slug, title, subtitle, description, image, material, price, forSale, sold')
   .order('id')
 
 if (error) {
-  console.error('Failed to fetch artworks:', error.message)
+  console.error('Failed to fetch products:', error.message)
   process.exit(1)
 }
 
-if (!artworks || artworks.length === 0) {
-  console.log('No artworks found – skipping prerender.')
+if (!products || products.length === 0) {
+  console.log('No products found – skipping prerender.')
   process.exit(0)
 }
 
-console.log(`Prerendering ${artworks.length} artwork pages...`)
+console.log(`Prerendering ${products.length} product pages...`)
 
-for (const artwork of artworks) {
-  // Trailing slash required! GitHub Pages redirects /artwork/slug to /artwork/slug/
-  const pageUrl = `${BASE_URL}/artwork/${artwork.slug}/`
-  const pageTitle = `${artwork.title} – Runes by Vilhelm`
-  const pageDesc = artwork.subtitle || artwork.description?.slice(0, 160) || ''
-  const pageImage = artwork.image || `${BASE_URL}/og_image.jpg`
-  
-  // Create artwork-specific JSON-LD
-  const artworkJsonLd = {
+for (const product of products) {
+  // Trailing slash required! GitHub Pages redirects /{productPath}/slug to /{productPath}/slug/
+  const pageUrl = `${BASE_URL}/${PRODUCT_PATH}/${product.slug}/`
+  const pageTitle = `${product.title} – Runes by Vilhelm`
+  const pageDesc = product.subtitle || product.description?.slice(0, 160) || ''
+  const pageImage = product.image || `${BASE_URL}/og_image.jpg`
+
+  // Create product-specific JSON-LD
+  const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "VisualArtwork",
-    "name": artwork.title,
-    "description": artwork.description || artwork.subtitle || '',
+    "name": product.title,
+    "description": product.description || product.subtitle || '',
     "image": pageImage,
     "url": pageUrl,
-    "artMedium": artwork.medium || "Wood carving",
+    "artMedium": product.material || "Wood carving",
     "artform": "Rune carving",
     "creator": {
       "@type": "Person",
@@ -67,31 +68,31 @@ for (const artwork of artworks) {
       "url": BASE_URL
     }
   }
-  
+
   // Add offer if for sale
-  if (artwork.forSale && !artwork.sold && artwork.price) {
-    artworkJsonLd.offers = {
+  if (product.forSale && !product.sold && product.price) {
+    productJsonLd.offers = {
       "@type": "Offer",
-      "price": artwork.price,
+      "price": product.price,
       "priceCurrency": "SEK",
       "availability": "https://schema.org/InStock",
       "url": pageUrl
     }
-  } else if (artwork.sold) {
-    artworkJsonLd.offers = {
+  } else if (product.sold) {
+    productJsonLd.offers = {
       "@type": "Offer",
       "availability": "https://schema.org/SoldOut"
     }
   }
-  
-  const artworkScript = `<script type="application/ld+json">${JSON.stringify(artworkJsonLd)}</script>`
-  
+
+  const productScript = `<script type="application/ld+json">${JSON.stringify(productJsonLd)}</script>`
+
   // Replace og tags in HTML
   let html = baseHtml
-    // Insert artwork JSON-LD before closing head
+    // Insert product JSON-LD before closing head
     .replace(
       '</head>',
-      `${artworkScript}\n  </head>`
+      `${productScript}\n  </head>`
     )
     // Update canonical URL (fixes circular redirect)
     .replace(
@@ -135,7 +136,7 @@ for (const artwork of artworks) {
     // Update og:image:alt
     .replace(
       /<meta property="og:image:alt"[^>]*>/,
-      `<meta property="og:image:alt" content="${escapeHtml(artwork.title)} – handcrafted rune carving by Vilhelm Westman" />`
+      `<meta property="og:image:alt" content="${escapeHtml(product.title)}" />`
     )
     // Update twitter:title
     .replace(
@@ -153,12 +154,12 @@ for (const artwork of artworks) {
       `<meta name="twitter:image" content="${pageImage}" />`
     )
 
-  // Write to /artwork/{slug}/index.html
-  const dir = join(DIST_DIR, 'artwork', artwork.slug)
+  // Write to /{productPath}/{slug}/index.html
+  const dir = join(DIST_DIR, PRODUCT_PATH, product.slug)
   mkdirSync(dir, { recursive: true })
   writeFileSync(join(dir, 'index.html'), html)
-  
-  console.log(`✓ /artwork/${artwork.slug}/`)
+
+  console.log(`✓ /${PRODUCT_PATH}/${product.slug}/`)
 }
 
 // Generate dynamic sitemap
@@ -171,8 +172,8 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-${artworks.map(a => `  <url>
-    <loc>${BASE_URL}/artwork/${a.slug}/</loc>
+${products.map(p => `  <url>
+    <loc>${BASE_URL}/${PRODUCT_PATH}/${p.slug}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -180,9 +181,9 @@ ${artworks.map(a => `  <url>
 </urlset>`
 
 writeFileSync(join(DIST_DIR, 'sitemap.xml'), sitemapXml)
-console.log(`✓ sitemap.xml (${artworks.length + 1} URLs)`)
+console.log(`✓ sitemap.xml (${products.length + 1} URLs)`)
 
-console.log(`\nPrerendered ${artworks.length} artwork page(s).`)
+console.log(`\nPrerendered ${products.length} product page(s).`)
 
 function escapeHtml(str) {
   return str

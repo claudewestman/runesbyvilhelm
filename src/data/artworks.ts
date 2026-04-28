@@ -1,12 +1,12 @@
-export interface Artwork {
+export interface Product {
   id: number;
   slug: string;
   title: string;
   subtitle: string;
   description: string;
-  translation: string;
-  instagramId?: string;
-  medium: string;
+  note: string;
+  externalLink?: string;
+  material: string;
   image: string;
   /** Dimensions in centimeters */
   height?: number;

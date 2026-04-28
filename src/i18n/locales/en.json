@@ -13,7 +13,7 @@
     "loading": "Loading gallery…",
     "error": "Failed to load artworks."
   },
-  "artwork": {
+  "product": {
     "card": {
       "sold": "Sold",
       "forSale": "For sale",
@@ -46,8 +46,8 @@
       "name": "Name",
       "namePlaceholder": "Your name",
       "email": "Email",
-      "motif": "Motif & runic text",
-      "motifPlaceholder": "e.g. Yggdrasil with a verse from Hávamál",
+      "details": "Motif & runic text",
+      "detailsPlaceholder": "e.g. Yggdrasil with a verse from Hávamál",
       "size": "Approximate size",
       "sizePlaceholder": "e.g. 30 × 40 cm",
       "colours": "Colours / style",
@@ -81,16 +81,16 @@
     "header": "ᚠ Admin",
     "signOut": "Sign out",
     "loading": "Loading…",
-    "loadingArtworks": "Loading artworks…",
-    "addArtwork": "+ Add artwork",
+    "loadingProducts": "Loading artworks…",
+    "addProduct": "+ Add artwork",
     "columns": {
       "id": "ID",
       "slug": "Slug",
       "title": "Title",
       "subtitle": "Subtitle",
       "description": "Description",
-      "translation": "Translation",
-      "medium": "Medium",
+      "note": "Translation",
+      "material": "Medium",
       "h": "H",
       "w": "W",
       "d": "D",
@@ -99,7 +99,7 @@
       "forSale": "For Sale",
       "sold": "Sold",
       "stripeLink": "Stripe Link",
-      "instagramId": "Instagram ID"
+      "externalLink": "Instagram ID"
     },
     "save": "Save",
     "saving": "…",
