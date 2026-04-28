@@ -1,20 +1,16 @@
+import { useTranslation } from 'react-i18next'
+import siteConfig from '../config/site'
 import './About.css'
 
 export default function About() {
+  const { t } = useTranslation()
+
   return (
     <section className="about">
       <div className="about__inner">
-        <h2 className="about__title">About the artist</h2>
-        <p className="about__text">
-          Vilhelm Westman has had a deep passion for history since childhood, with a particular
-          fascination for the Viking Age. Over the years he has visited countless ancient sites
-          and studied runes and runic inscriptions up close – at the actual stones.
-        </p>
-        <p className="about__text">
-          His work is grounded in the Younger Futhark and authentic Viking Age texts from the Eddas.
-          Every runic band is carefully composed to carry genuine meaning – not decorative
-          pseudo-runes. The medium is wood, and the technique combines pyrography with acrylic paint.
-        </p>
+        <h2 className="about__title">{t('about.title')}</h2>
+        <p className="about__text">{t('about.paragraph1', { artistName: siteConfig.artistName })}</p>
+        <p className="about__text">{t('about.paragraph2')}</p>
         <div className="about__sep">
           <span className="about__sep-line" />
           <span className="about__sep-diamond" />

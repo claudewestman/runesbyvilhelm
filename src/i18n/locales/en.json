@@ -1,0 +1,110 @@
+{
+  "hero": {
+    "bio": "Handcrafted rune carvings on wood – rooted in the Younger Futhark, the Eddic myths, and authentic Viking Age inscriptions. Every piece is unique and carries its own runic text."
+  },
+  "gallery": {
+    "title": "Gallery",
+    "searchPlaceholder": "Search artworks…",
+    "searchAriaLabel": "Search artworks",
+    "filterAll": "All",
+    "filterForSale": "For sale",
+    "filterAriaLabel": "Filter artworks",
+    "empty": "No artworks found.",
+    "loading": "Loading gallery…",
+    "error": "Failed to load artworks."
+  },
+  "artwork": {
+    "card": {
+      "sold": "Sold",
+      "forSale": "For sale",
+      "view": "View"
+    },
+    "page": {
+      "backToGallery": "← Gallery",
+      "backToGalleryFull": "← Back to gallery",
+      "viewFullscreen": "View fullscreen",
+      "closeFullscreen": "Close fullscreen",
+      "viewOnInstagram": "View on Instagram",
+      "purchase": "Purchase this piece",
+      "sold": "Sold",
+      "loading": "Loading…",
+      "notFound": "Artwork not found."
+    }
+  },
+  "about": {
+    "title": "About the artist",
+    "paragraph1": "{{artistName}} has had a deep passion for history since childhood, with a particular fascination for the Viking Age. Over the years he has visited countless ancient sites and studied runes and runic inscriptions up close – at the actual stones.",
+    "paragraph2": "His work is grounded in the Younger Futhark and authentic Viking Age texts from the Eddas. Every runic band is carefully composed to carry genuine meaning – not decorative pseudo-runes. The medium is wood, and the technique combines pyrography with acrylic paint."
+  },
+  "contact": {
+    "title": "Commission a Custom Piece",
+    "lead": "Every piece is unique – carved and painted by hand with your chosen motif, runic text and colours. Custom commissions start at",
+    "price": "$290",
+    "success": "Your message has been sent. {{artistName}} will be in touch shortly.",
+    "error": "Something went wrong – please try again or email directly.",
+    "fields": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "motif": "Motif & runic text",
+      "motifPlaceholder": "e.g. Yggdrasil with a verse from Hávamál",
+      "size": "Approximate size",
+      "sizePlaceholder": "e.g. 30 × 40 cm",
+      "colours": "Colours / style",
+      "coloursPlaceholder": "e.g. black & gold, Urnes style",
+      "message": "Anything else",
+      "messagePlaceholder": "Tell {{artistName}} anything else about your vision…"
+    },
+    "submit": "Send enquiry",
+    "submitting": "Sending…"
+  },
+  "footer": {
+    "newsletterLabel": "Get notified about new works",
+    "newsletterPlaceholder": "Your email",
+    "newsletterButton": "Subscribe",
+    "copyright": "© {{artistName}} — All rights reserved",
+    "privacyPolicy": "Privacy Policy",
+    "poweredBy": "Powered by Kattbjörn"
+  },
+  "share": {
+    "label": "Share",
+    "on": "Share on {{platform}}"
+  },
+  "login": {
+    "title": "Admin",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…"
+  },
+  "admin": {
+    "header": "ᚠ Admin",
+    "signOut": "Sign out",
+    "loading": "Loading…",
+    "loadingArtworks": "Loading artworks…",
+    "addArtwork": "+ Add artwork",
+    "columns": {
+      "id": "ID",
+      "slug": "Slug",
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "description": "Description",
+      "translation": "Translation",
+      "medium": "Medium",
+      "h": "H",
+      "w": "W",
+      "d": "D",
+      "image": "Image",
+      "price": "Price (USD)",
+      "forSale": "For Sale",
+      "sold": "Sold",
+      "stripeLink": "Stripe Link",
+      "instagramId": "Instagram ID"
+    },
+    "save": "Save",
+    "saving": "…",
+    "upload": "Upload",
+    "uploading": "…",
+    "confirmDelete": "Delete \"{{title}}\"?"
+  }
+}

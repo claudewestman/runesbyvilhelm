@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { Artwork } from '../data/artworks'
 import ArtworkCard from './ArtworkCard'
 import './Gallery.css'
@@ -23,6 +24,7 @@ function matchesSearch(artwork: Artwork, query: string): boolean {
 }
 
 export default function Gallery({ artworks, onOpen }: Props) {
+  const { t } = useTranslation()
   const [filter, setFilter] = useState<Filter>('all')
   const [search, setSearch] = useState('')
 
@@ -35,7 +37,7 @@ export default function Gallery({ artworks, onOpen }: Props) {
 
   return (
     <section className="gallery-section">
-      <h2 className="gallery-section__title">Gallery</h2>
+      <h2 className="gallery-section__title">{t('gallery.title')}</h2>
 
       <div className="gallery-controls">
         <div className="gallery-search">
@@ -46,31 +48,31 @@ export default function Gallery({ artworks, onOpen }: Props) {
           <input
             className="gallery-search__input"
             type="search"
-            placeholder="Search artworks…"
+            placeholder={t('gallery.searchPlaceholder')}
             value={search}
             onChange={e => setSearch(e.target.value)}
-            aria-label="Search artworks"
+            aria-label={t('gallery.searchAriaLabel')}
           />
         </div>
 
-        <fieldset className="gallery-filters" aria-label="Filter artworks">
+        <fieldset className="gallery-filters" aria-label={t('gallery.filterAriaLabel')}>
           <button
             className={`gallery-filter${filter === 'all' ? ' gallery-filter--active' : ''}`}
             onClick={() => setFilter('all')}
           >
-            All
+            {t('gallery.filterAll')}
           </button>
           <button
             className={`gallery-filter${filter === 'for-sale' ? ' gallery-filter--active' : ''}`}
             onClick={() => setFilter('for-sale')}
           >
-            For sale
+            {t('gallery.filterForSale')}
           </button>
         </fieldset>
       </div>
 
       {visible.length === 0 ? (
-        <p className="gallery-empty">No artworks found.</p>
+        <p className="gallery-empty">{t('gallery.empty')}</p>
       ) : (
         <div className="gallery-grid">
           {visible.map(({ artwork, index }) => (

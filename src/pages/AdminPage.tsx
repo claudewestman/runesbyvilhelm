@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../hooks/useAuth'
 import LoginForm from '../components/LoginForm'
 import { supabase } from '../lib/supabase'
@@ -9,6 +10,7 @@ import './AdminPage.css'
 type EditableArtwork = Artwork & { _dirty?: boolean }
 
 export default function AdminPage() {
+  const { t } = useTranslation()
   const { user, loading: authLoading, signIn, signOut } = useAuth()
   const [artworks, setArtworks] = useState<EditableArtwork[]>([])
   const [dataLoading, setDataLoading] = useState(false)
@@ -44,7 +46,7 @@ export default function AdminPage() {
 
   async function uploadImage(artworkId: number, file: File) {
     setUploading(artworkId)
-    
+
     // Compress image before upload (max 1200px, JPEG 85% quality)
     let uploadBlob: Blob
     try {
@@ -60,15 +62,15 @@ export default function AdminPage() {
 
     // Always use .jpg since we compress to JPEG
     const filename = `${artworkId}-${Date.now()}.jpg`
-    
+
     const { error: uploadError } = await supabase.storage
       .from('artworks')
-      .upload(filename, uploadBlob, { 
-        cacheControl: '31536000', 
+      .upload(filename, uploadBlob, {
+        cacheControl: '31536000',
         upsert: true,
         contentType: 'image/jpeg'
       })
-    
+
     if (uploadError) {
       showMsg('err', uploadError.message)
       setUploading(null)
@@ -78,17 +80,17 @@ export default function AdminPage() {
     const { data: urlData } = supabase.storage
       .from('artworks')
       .getPublicUrl(filename)
-    
+
     const publicUrl = urlData.publicUrl
-    
+
     // Update in database
     const { error: dbError } = await supabase
       .from('artworks')
       .update({ image: publicUrl })
       .eq('id', artworkId)
-    
+
     setUploading(null)
-    
+
     if (dbError) {
       showMsg('err', dbError.message)
     } else {
@@ -145,7 +147,7 @@ export default function AdminPage() {
   }
 
   async function deleteRow(id: number, title: string) {
-    if (!globalThis.confirm(`Delete "${title}"?`)) return
+    if (!globalThis.confirm(t('admin.confirmDelete', { title }))) return
     const { error } = await supabase.from('artworks').delete().eq('id', id)
     if (error) showMsg('err', error.message)
     else {
@@ -154,7 +156,7 @@ export default function AdminPage() {
     }
   }
 
-  if (authLoading) return <div className="admin-status">Loading…</div>
+  if (authLoading) return <div className="admin-status">{t('admin.loading')}</div>
 
   if (!user) {
     return <LoginForm onSignIn={signIn} />
@@ -163,43 +165,43 @@ export default function AdminPage() {
   return (
     <div className="admin">
       <header className="admin__header">
-        <span className="admin__logo">ᚠ Admin</span>
+        <span className="admin__logo">{t('admin.header')}</span>
         <div className="admin__header-right">
           {message && (
             <span className={`admin__msg admin__msg--${message.type}`}>{message.text}</span>
           )}
-          <button className="admin__signout" onClick={signOut}>Sign out</button>
+          <button className="admin__signout" onClick={signOut}>{t('admin.signOut')}</button>
         </div>
       </header>
 
       <main className="admin__main">
         {dataLoading ? (
-          <p className="admin-status">Loading artworks…</p>
+          <p className="admin-status">{t('admin.loadingArtworks')}</p>
         ) : (
           <>
             <div className="admin__toolbar">
-              <button className="admin__add" onClick={addRow}>+ Add artwork</button>
+              <button className="admin__add" onClick={addRow}>{t('admin.addArtwork')}</button>
             </div>
             <div className="admin__table-wrap">
               <table className="admin__table">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Slug</th>
-                    <th>Title</th>
-                    <th>Subtitle</th>
-                    <th>Description</th>
-                    <th>Translation</th>
-                    <th>Medium</th>
-                    <th>H</th>
-                    <th>W</th>
-                    <th>D</th>
-                    <th>Image</th>
-                    <th>Price&nbsp;(USD)</th>
-                    <th>For&nbsp;Sale</th>
-                    <th>Sold</th>
-                    <th>Stripe&nbsp;Link</th>
-                    <th>Instagram&nbsp;ID</th>
+                    <th>{t('admin.columns.id')}</th>
+                    <th>{t('admin.columns.slug')}</th>
+                    <th>{t('admin.columns.title')}</th>
+                    <th>{t('admin.columns.subtitle')}</th>
+                    <th>{t('admin.columns.description')}</th>
+                    <th>{t('admin.columns.translation')}</th>
+                    <th>{t('admin.columns.medium')}</th>
+                    <th>{t('admin.columns.h')}</th>
+                    <th>{t('admin.columns.w')}</th>
+                    <th>{t('admin.columns.d')}</th>
+                    <th>{t('admin.columns.image')}</th>
+                    <th>{t('admin.columns.price')}</th>
+                    <th>{t('admin.columns.forSale')}</th>
+                    <th>{t('admin.columns.sold')}</th>
+                    <th>{t('admin.columns.stripeLink')}</th>
+                    <th>{t('admin.columns.instagramId')}</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -295,7 +297,7 @@ export default function AdminPage() {
                             disabled={uploading === a.id}
                             onClick={() => fileInputRefs.current.get(a.id)?.click()}
                           >
-                            {uploading === a.id ? '…' : 'Upload'}
+                            {uploading === a.id ? t('admin.uploading') : t('admin.upload')}
                           </button>
                         </div>
                       </td>
@@ -341,7 +343,7 @@ export default function AdminPage() {
                           disabled={!a._dirty || saving === a.id}
                           onClick={() => saveRow(a)}
                         >
-                          {saving === a.id ? '…' : 'Save'}
+                          {saving === a.id ? t('admin.saving') : t('admin.save')}
                         </button>
                         <button
                           className="admin__delete"

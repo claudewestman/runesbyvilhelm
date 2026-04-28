@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import './ShareLinks.css'
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function ShareLinks({ url, title, image }: Props) {
+  const { t } = useTranslation()
   const encodedUrl = encodeURIComponent(url)
   const encodedTitle = encodeURIComponent(title)
   const mediaParam = image ? '&media=' + encodeURIComponent(image) : ''
@@ -43,7 +45,7 @@ export default function ShareLinks({ url, title, image }: Props) {
 
   return (
     <div className="share-links">
-      <span className="share-links__label">Share</span>
+      <span className="share-links__label">{t('share.label')}</span>
       <div className="share-links__buttons">
         {links.map(link => (
           <a
@@ -52,8 +54,8 @@ export default function ShareLinks({ url, title, image }: Props) {
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Share on ${link.name}`}
-            title={`Share on ${link.name}`}
+            aria-label={t('share.on', { platform: link.name })}
+            title={t('share.on', { platform: link.name })}
           >
             {link.icon}
           </a>

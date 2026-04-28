@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import siteConfig from '../config/site'
 import './ContactForm.css'
 
 // Sign up at formspree.io, create a form and paste your endpoint here:
@@ -7,6 +9,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mqeggllb'
 type Status = 'idle' | 'submitting' | 'success' | 'error'
 
 export default function ContactForm() {
+  const { t } = useTranslation()
   const [status, setStatus] = useState<Status>('idle')
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -36,35 +39,34 @@ export default function ContactForm() {
   return (
     <section className="contact" id="contact">
       <div className="contact__inner">
-        <h2 className="contact__title">Commission a Custom Piece</h2>
+        <h2 className="contact__title">{t('contact.title')}</h2>
         <p className="contact__lead">
-          Every piece is unique – carved and painted by hand with your chosen motif,
-          runic text and colours. Custom commissions start at{' '}
-          <strong className="contact__price">$290</strong>.
+          {t('contact.lead')}{' '}
+          <strong className="contact__price">{t('contact.price')}</strong>.
         </p>
 
         {status === 'success' ? (
           <div className="contact__success">
             <span className="contact__success-rune">ᛉ</span>
-            <p>Your message has been sent. Vilhelm will be in touch shortly.</p>
+            <p>{t('contact.success', { artistName: siteConfig.artistName })}</p>
           </div>
         ) : (
           <form className="contact__form" onSubmit={handleSubmit} noValidate>
             <div className="form-row form-row--half">
               <div className="form-group">
-                <label className="form-label" htmlFor="cf-name">Name</label>
+                <label className="form-label" htmlFor="cf-name">{t('contact.fields.name')}</label>
                 <input
                   className="form-input"
                   id="cf-name"
                   name="name"
                   type="text"
-                  placeholder="Your name"
+                  placeholder={t('contact.fields.namePlaceholder')}
                   required
                   disabled={status === 'submitting'}
                 />
               </div>
               <div className="form-group">
-                <label className="form-label" htmlFor="cf-email">Email</label>
+                <label className="form-label" htmlFor="cf-email">{t('contact.fields.email')}</label>
                 <input
                   className="form-input"
                   id="cf-email"
@@ -78,58 +80,56 @@ export default function ContactForm() {
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="cf-motif">Motif &amp; runic text</label>
+              <label className="form-label" htmlFor="cf-motif">{t('contact.fields.motif')}</label>
               <input
                 className="form-input"
                 id="cf-motif"
                 name="motif"
                 type="text"
-                placeholder="e.g. Yggdrasil with a verse from Hávamál"
+                placeholder={t('contact.fields.motifPlaceholder')}
                 disabled={status === 'submitting'}
               />
             </div>
 
             <div className="form-row form-row--half">
               <div className="form-group">
-                <label className="form-label" htmlFor="cf-size">Approximate size</label>
+                <label className="form-label" htmlFor="cf-size">{t('contact.fields.size')}</label>
                 <input
                   className="form-input"
                   id="cf-size"
                   name="size"
                   type="text"
-                  placeholder="e.g. 30 × 40 cm"
+                  placeholder={t('contact.fields.sizePlaceholder')}
                   disabled={status === 'submitting'}
                 />
               </div>
               <div className="form-group">
-                <label className="form-label" htmlFor="cf-colours">Colours / style</label>
+                <label className="form-label" htmlFor="cf-colours">{t('contact.fields.colours')}</label>
                 <input
                   className="form-input"
                   id="cf-colours"
                   name="colours"
                   type="text"
-                  placeholder="e.g. black &amp; gold, Urnes style"
+                  placeholder={t('contact.fields.coloursPlaceholder')}
                   disabled={status === 'submitting'}
                 />
               </div>
             </div>
 
             <div className="form-group">
-              <label className="form-label" htmlFor="cf-message">Anything else</label>
+              <label className="form-label" htmlFor="cf-message">{t('contact.fields.message')}</label>
               <textarea
                 className="form-input form-input--textarea"
                 id="cf-message"
                 name="message"
                 rows={4}
-                placeholder="Tell Vilhelm anything else about your vision…"
+                placeholder={t('contact.fields.messagePlaceholder', { artistName: siteConfig.artistName })}
                 disabled={status === 'submitting'}
               />
             </div>
 
             {status === 'error' && (
-              <p className="contact__error">
-                Something went wrong – please try again or email directly.
-              </p>
+              <p className="contact__error">{t('contact.error')}</p>
             )}
 
             <button
@@ -137,7 +137,7 @@ export default function ContactForm() {
               type="submit"
               disabled={status === 'submitting'}
             >
-              {status === 'submitting' ? 'Sending…' : 'Send enquiry'}
+              {status === 'submitting' ? t('contact.submitting') : t('contact.submit')}
             </button>
           </form>
         )}
