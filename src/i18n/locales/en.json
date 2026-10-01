@@ -39,7 +39,7 @@
   "contact": {
     "title": "Commission a Custom Piece",
     "lead": "Every piece is unique – carved and painted by hand with your chosen motif, runic text and colours. Custom commissions start at",
-    "price": "$290",
+    "price": "$2900",
     "success": "Your message has been sent. {{artistName}} will be in touch shortly.",
     "error": "Something went wrong – please try again or email directly.",
     "fields": {
