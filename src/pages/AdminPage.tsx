@@ -1,29 +1,34 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../hooks/useAuth'
 import LoginForm from '../components/LoginForm'
 import { supabase } from '../lib/supabase'
-import type { Artwork } from '../data/artworks'
+import { compressImage } from '../utils/compressImage'
+import type { Product } from '../data/artworks'
 import './AdminPage.css'
 
-type EditableArtwork = Artwork & { _dirty?: boolean }
+type EditableProduct = Product & { _dirty?: boolean }
 
 export default function AdminPage() {
+  const { t } = useTranslation()
   const { user, loading: authLoading, signIn, signOut } = useAuth()
-  const [artworks, setArtworks] = useState<EditableArtwork[]>([])
+  const [artworks, setArtworks] = useState<EditableProduct[]>([])
   const [dataLoading, setDataLoading] = useState(false)
   const [saving, setSaving] = useState<number | null>(null)
+  const [uploading, setUploading] = useState<number | null>(null)
   const [message, setMessage] = useState<{ type: 'ok' | 'err'; text: string } | null>(null)
+  const fileInputRefs = useRef<Map<number, HTMLInputElement>>(new Map())
 
   useEffect(() => {
     if (!user) return
     setDataLoading(true)
     supabase
-      .from('artworks')
+      .from('products')
       .select('*')
       .order('id')
       .then(({ data, error }) => {
         if (error) showMsg('err', error.message)
-        else setArtworks(data as EditableArtwork[])
+        else setArtworks(data as EditableProduct[])
         setDataLoading(false)
       })
   }, [user])
@@ -33,17 +38,80 @@ export default function AdminPage() {
     setTimeout(() => setMessage(null), 3500)
   }
 
-  function updateField(id: number, field: keyof Artwork, value: string | number | boolean) {
+  function updateField(id: number, field: keyof Product, value: string | number | boolean | undefined) {
     setArtworks(prev =>
       prev.map(a => (a.id === id ? { ...a, [field]: value, _dirty: true } : a))
     )
   }
 
-  async function saveRow(artwork: EditableArtwork) {
+  async function uploadImage(artworkId: number, file: File) {
+    setUploading(artworkId)
+
+    // Compress image before upload (max 1200px, JPEG 85% quality)
+    let uploadBlob: Blob
+    try {
+      uploadBlob = await compressImage(file, 1200, 0.85)
+      const originalKB = Math.round(file.size / 1024)
+      const compressedKB = Math.round(uploadBlob.size / 1024)
+      console.log(`Image compressed: ${originalKB}KB → ${compressedKB}KB`)
+    } catch (err) {
+      showMsg('err', 'Failed to compress image')
+      setUploading(null)
+      return
+    }
+
+    // Always use .jpg since we compress to JPEG
+    const filename = `${artworkId}-${Date.now()}.jpg`
+
+    const { error: uploadError } = await supabase.storage
+      .from('products')
+      .upload(filename, uploadBlob, {
+        cacheControl: '31536000',
+        upsert: true,
+        contentType: 'image/jpeg'
+      })
+
+    if (uploadError) {
+      showMsg('err', uploadError.message)
+      setUploading(null)
+      return
+    }
+
+    const { data: urlData } = supabase.storage
+      .from('products')
+      .getPublicUrl(filename)
+
+    const publicUrl = urlData.publicUrl
+
+    // Update in database
+    const { error: dbError } = await supabase
+      .from('products')
+      .update({ image: publicUrl })
+      .eq('id', artworkId)
+
+    setUploading(null)
+
+    if (dbError) {
+      showMsg('err', dbError.message)
+    } else {
+      setArtworks(prev =>
+        prev.map(a => (a.id === artworkId ? { ...a, image: publicUrl } : a))
+      )
+      showMsg('ok', 'Image uploaded!')
+    }
+  }
+
+  function handleFileSelect(artworkId: number, e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (file) uploadImage(artworkId, file)
+    e.target.value = ''
+  }
+
+  async function saveRow(artwork: EditableProduct) {
     setSaving(artwork.id)
     const { _dirty, ...data } = artwork
     const { error } = await supabase
-      .from('artworks')
+      .from('products')
       .update(data)
       .eq('id', artwork.id)
     setSaving(null)
@@ -56,27 +124,31 @@ export default function AdminPage() {
 
   async function addRow() {
     const maxId = artworks.reduce((m, a) => Math.max(m, a.id), 0)
-    const blank: Artwork = {
+    const blank: Product = {
       id: maxId + 1,
-      slug: `artwork-${maxId + 1}`,
-      title: 'New Artwork',
+      slug: `product-${maxId + 1}`,
+      title: 'New Product',
       subtitle: '',
       description: '',
-      medium: '',
+      note: '',
+      material: '',
       image: '/images/placeholder.png',
+      height: undefined,
+      width: undefined,
+      depth: undefined,
       price: 0,
       forSale: true,
       stripeLink: '',
       sold: false,
     }
-    const { error } = await supabase.from('artworks').insert(blank)
+    const { error } = await supabase.from('products').insert(blank)
     if (error) showMsg('err', error.message)
     else setArtworks(prev => [...prev, blank])
   }
 
   async function deleteRow(id: number, title: string) {
-    if (!window.confirm(`Delete "${title}"?`)) return
-    const { error } = await supabase.from('artworks').delete().eq('id', id)
+    if (!globalThis.confirm(t('admin.confirmDelete', { title }))) return
+    const { error } = await supabase.from('products').delete().eq('id', id)
     if (error) showMsg('err', error.message)
     else {
       showMsg('ok', `"${title}" deleted.`)
@@ -84,7 +156,7 @@ export default function AdminPage() {
     }
   }
 
-  if (authLoading) return <div className="admin-status">Loading…</div>
+  if (authLoading) return <div className="admin-status">{t('admin.loading')}</div>
 
   if (!user) {
     return <LoginForm onSignIn={signIn} />
@@ -93,38 +165,43 @@ export default function AdminPage() {
   return (
     <div className="admin">
       <header className="admin__header">
-        <span className="admin__logo">ᚠ Admin</span>
+        <span className="admin__logo">{t('admin.header')}</span>
         <div className="admin__header-right">
           {message && (
             <span className={`admin__msg admin__msg--${message.type}`}>{message.text}</span>
           )}
-          <button className="admin__signout" onClick={signOut}>Sign out</button>
+          <button className="admin__signout" onClick={signOut}>{t('admin.signOut')}</button>
         </div>
       </header>
 
       <main className="admin__main">
         {dataLoading ? (
-          <p className="admin-status">Loading artworks…</p>
+          <p className="admin-status">{t('admin.loadingProducts')}</p>
         ) : (
           <>
             <div className="admin__toolbar">
-              <button className="admin__add" onClick={addRow}>+ Add artwork</button>
+              <button className="admin__add" onClick={addRow}>{t('admin.addProduct')}</button>
             </div>
             <div className="admin__table-wrap">
               <table className="admin__table">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Slug</th>
-                    <th>Title</th>
-                    <th>Subtitle</th>
-                    <th>Description</th>
-                    <th>Medium</th>
-                    <th>Image</th>
-                    <th>Price&nbsp;(USD)</th>
-                    <th>For&nbsp;Sale</th>
-                    <th>Sold</th>
-                    <th>Stripe&nbsp;Link</th>
+                    <th>{t('admin.columns.id')}</th>
+                    <th>{t('admin.columns.slug')}</th>
+                    <th>{t('admin.columns.title')}</th>
+                    <th>{t('admin.columns.subtitle')}</th>
+                    <th>{t('admin.columns.description')}</th>
+                    <th>{t('admin.columns.note')}</th>
+                    <th>{t('admin.columns.material')}</th>
+                    <th>{t('admin.columns.h')}</th>
+                    <th>{t('admin.columns.w')}</th>
+                    <th>{t('admin.columns.d')}</th>
+                    <th>{t('admin.columns.image')}</th>
+                    <th>{t('admin.columns.price')}</th>
+                    <th>{t('admin.columns.forSale')}</th>
+                    <th>{t('admin.columns.sold')}</th>
+                    <th>{t('admin.columns.stripeLink')}</th>
+                    <th>{t('admin.columns.externalLink')}</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -161,18 +238,68 @@ export default function AdminPage() {
                         />
                       </td>
                       <td>
-                        <input
-                          className="admin__input"
-                          value={a.medium}
-                          onChange={e => updateField(a.id, 'medium', e.target.value)}
+                        <textarea
+                          className="admin__input admin__textarea"
+                          value={a.note}
+                          onChange={e => updateField(a.id, 'note', e.target.value)}
                         />
                       </td>
                       <td>
                         <input
-                          className="admin__input admin__input--sm"
-                          value={a.image}
-                          onChange={e => updateField(a.id, 'image', e.target.value)}
+                          className="admin__input"
+                          value={a.material}
+                          onChange={e => updateField(a.id, 'material', e.target.value)}
                         />
+                      </td>
+                      <td>
+                        <input
+                          className="admin__input admin__input--num"
+                          type="number"
+                          value={a.height ?? ''}
+                          placeholder="H"
+                          onChange={e => updateField(a.id, 'height', e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          className="admin__input admin__input--num"
+                          type="number"
+                          value={a.width ?? ''}
+                          placeholder="W"
+                          onChange={e => updateField(a.id, 'width', e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          className="admin__input admin__input--num"
+                          type="number"
+                          value={a.depth ?? ''}
+                          placeholder="D"
+                          onChange={e => updateField(a.id, 'depth', e.target.value ? Number(e.target.value) : undefined)}
+                        />
+                      </td>
+                      <td>
+                        <div className="admin__image-cell">
+                          <img
+                            className="admin__image-preview"
+                            src={a.image}
+                            alt={a.title}
+                          />
+                          <input
+                            type="file"
+                            accept="image/*"
+                            hidden
+                            ref={el => { if (el) fileInputRefs.current.set(a.id, el) }}
+                            onChange={e => handleFileSelect(a.id, e)}
+                          />
+                          <button
+                            className="admin__upload-btn"
+                            disabled={uploading === a.id}
+                            onClick={() => fileInputRefs.current.get(a.id)?.click()}
+                          >
+                            {uploading === a.id ? t('admin.uploading') : t('admin.upload')}
+                          </button>
+                        </div>
                       </td>
                       <td>
                         <input
@@ -203,13 +330,20 @@ export default function AdminPage() {
                           onChange={e => updateField(a.id, 'stripeLink', e.target.value)}
                         />
                       </td>
+                      <td>
+                        <input
+                          className="admin__input"
+                          value={a.externalLink}
+                          onChange={e => updateField(a.id, 'externalLink', e.target.value)}
+                        />
+                      </td>
                       <td className="admin__cell--actions">
                         <button
                           className="admin__save"
                           disabled={!a._dirty || saving === a.id}
                           onClick={() => saveRow(a)}
                         >
-                          {saving === a.id ? '…' : 'Save'}
+                          {saving === a.id ? t('admin.saving') : t('admin.save')}
                         </button>
                         <button
                           className="admin__delete"

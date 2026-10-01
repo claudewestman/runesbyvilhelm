@@ -1,28 +1,28 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
-import type { Artwork } from '../data/artworks'
+import type { Product } from '../data/artworks'
 
 interface UseArtworksResult {
-  artworks: Artwork[]
+  artworks: Product[]
   loading: boolean
   error: string | null
 }
 
 export function useArtworks(): UseArtworksResult {
-  const [artworks, setArtworks] = useState<Artwork[]>([])
+  const [artworks, setArtworks] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     supabase
-      .from('artworks')
+      .from('products')
       .select('*')
       .order('id', { ascending: true })
       .then(({ data, error }) => {
         if (error) {
           setError(error.message)
         } else {
-          setArtworks((data ?? []) as Artwork[])
+          setArtworks((data ?? []) as Product[])
         }
         setLoading(false)
       })

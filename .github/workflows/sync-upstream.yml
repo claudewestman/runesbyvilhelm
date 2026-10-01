@@ -1,0 +1,42 @@
+name: Sync from upstream core
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream and fetch
+        run: |
+          git remote add upstream ${{ vars.UPSTREAM_REPO_URL }}
+          git fetch upstream
+
+      - name: Create sync branch
+        run: git checkout -b sync/upstream-$(date +%Y-%m-%d)
+
+      - name: Merge upstream
+        run: git merge upstream/main --no-edit
+
+      - name: Push branch
+        run: git push origin HEAD
+
+      - name: Create pull request
+        run: |
+          gh pr create \
+            --title "chore: sync from upstream core ($(date +%Y-%m-%d))" \
+            --body "Automated sync from the upstream core repo. Review changes before merging — resolve any conflicts with site-specific files manually." \
+            --label "upstream-sync" \
+            --base main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

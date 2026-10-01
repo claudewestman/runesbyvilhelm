@@ -6,14 +6,19 @@
   "scripts": {
     "dev": "vite",
     "thumbnails": "node scripts/thumbnails.mjs",
+    "icons": "node scripts/icons.mjs",
     "build": "tsc -b && vite build",
-    "build:full": "npm run thumbnails && npm run build",
+    "prerender": "node scripts/prerender.mjs",
+    "build:full": "npm run thumbnails && npm run build && npm run prerender",
     "preview": "vite preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.101.1",
+    "dotenv": "^17.4.1",
+    "i18next": "^26.0.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-i18next": "^17.0.3",
     "react-router-dom": "^7.14.0"
   },
   "devDependencies": {

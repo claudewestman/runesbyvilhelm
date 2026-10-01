@@ -1,14 +1,19 @@
+import { useTranslation } from 'react-i18next'
+import siteConfig from '../config/site'
 import './Footer.css'
+import { RUNES_TOP } from './Hero'
 
 
 export default function Footer() {
+  const { t } = useTranslation()
+
   return (
     <footer className="footer">
-      <p className="footer__runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ · ᚼ ᚾ ᛁ ᛅ ᛋ ᛏ ᛒ ᛘ ᛚ ᛦ</p>
+      <p className="footer__runes">{RUNES_TOP}</p>
       <nav className="footer__social" aria-label="Social media">
         <a
           className="footer__social-link"
-          href="https://www.instagram.com/runesbyvilhelm/"
+          href={siteConfig.social.instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
@@ -19,7 +24,7 @@ export default function Footer() {
         <span className="footer__social-sep" aria-hidden="true">·</span>
         <a
           className="footer__social-link"
-          href="https://www.facebook.com/runesbyvilhelm/"
+          href={siteConfig.social.facebookUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Facebook"
@@ -28,11 +33,34 @@ export default function Footer() {
           Facebook
         </a>
       </nav>
-      <p className="footer__copy">© Vilhelm Westman — All rights reserved</p>
+      <form
+        className="footer__newsletter"
+        action={siteConfig.newsletter.buttondownUrl}
+        method="post"
+        target="_blank"
+      >
+        <label className="footer__newsletter-label" htmlFor="bd-email">
+          {t('footer.newsletterLabel')}
+        </label>
+        <div className="footer__newsletter-row">
+          <input
+            type="email"
+            name="email"
+            id="bd-email"
+            placeholder={t('footer.newsletterPlaceholder')}
+            required
+            className="footer__newsletter-input"
+          />
+          <button type="submit" className="footer__newsletter-btn">
+            {t('footer.newsletterButton')}
+          </button>
+        </div>
+      </form>
+      <p className="footer__copy">{t('footer.copyright', { artistName: siteConfig.artistName })}</p>
       <p className="footer__legal">
-        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/privacy.html">{t('footer.privacyPolicy')}</a>
       </p>
-      <p className="footer__runes">Powered by Kattbjörn</p>
+      <p className="footer__runes">{t('footer.poweredBy')}</p>
     </footer>
   )
 }

@@ -213,3 +213,44 @@
   color: #e07070;
   border-color: #e07070;
 }
+
+/* Image upload */
+.admin__image-cell {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.admin__image-preview {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.admin__upload-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'Cinzel', serif;
+  font-size: .6rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  padding: .35em .6em;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+  white-space: nowrap;
+}
+
+.admin__upload-btn:hover:not(:disabled) {
+  color: var(--cream);
+  border-color: var(--cream);
+}
+
+.admin__upload-btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}

@@ -108,12 +108,48 @@
   font-size: 1rem;
   color: var(--text);
   line-height: 1.75;
+  white-space: pre-line;
+}
+
+.lb-translation {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--gold-dim);
+  line-height: 1.65;
+  border-left: 2px solid var(--gold-dim);
+  padding-left: 1rem;
+  margin: 0.25rem 0;
+  opacity: 0.9;
+  white-space: pre-line;
 }
 
 .lb-medium {
   font-size: .85rem;
   color: var(--text-muted);
   font-style: italic;
+}
+
+/* Instagram link */
+.lb-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: 'Cinzel', serif;
+  font-size: .7rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color .2s;
+}
+
+.lb-instagram:hover {
+  color: var(--gold);
+}
+
+.lb-instagram-icon {
+  width: 1rem;
+  height: 1rem;
 }
 
 .lb-price-row {
