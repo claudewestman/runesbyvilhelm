@@ -40,7 +40,7 @@ export default function ContactForm() {
         <p className="contact__lead">
           Every piece is unique – carved and painted by hand with your chosen motif,
           runic text and colours. Custom commissions start at{' '}
-          <strong className="contact__price">$290</strong>.
+          <strong className="contact__price">$2,900</strong>.
         </p>
 
         {status === 'success' ? (
