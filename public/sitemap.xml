@@ -5,4 +5,18 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url><loc>https://runesbyvilhelm.com/artwork/yggdrasil</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/tvenne-ormar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/drakrunsten</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/hjartormar</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/nidhogr</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/tvahovdad</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/kosmiskt-oga</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/stendrak</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/fenrir</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/seidkona</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/hjortdraken</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/draupnir</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/vikingataget</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runesbyvilhelm.com/artwork/bla-ormflata</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
